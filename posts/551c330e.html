@@ -1,0 +1,462 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="https://cdn.wenzuo.net/catch6-github-io/base/avatar.jpg?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="https://cdn.wenzuo.net/catch6-github-io/base/avatar.jpg?v=2.6.2" type="image/png" sizes="32x32"><meta name="baidu-site-verification" content="code-4sfQ80iYvV"><meta name="description" content="原文地址 作者：Jakob Jenkov 译者：小龙虾 转载自并发编程网 – ifeve.com  Java 的 volatile 关键字用于标记一个变量“应当存储在主存”。更确切地说，每次读取 volatile 变量，都应该从主存读取，而不是从 CPU 缓存读取。每次写入一个 volatile 变量，应该写到主存中，而不是仅仅写到 CPU 缓存。 实际上，从 Java 5 开始，volatil">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java Volatile关键字">
+<meta property="og:url" content="https://catch6.github.io/posts/551c330e.html">
+<meta property="og:site_name" content="Catch Notebook">
+<meta property="og:description" content="原文地址 作者：Jakob Jenkov 译者：小龙虾 转载自并发编程网 – ifeve.com  Java 的 volatile 关键字用于标记一个变量“应当存储在主存”。更确切地说，每次读取 volatile 变量，都应该从主存读取，而不是从 CPU 缓存读取。每次写入一个 volatile 变量，应该写到主存中，而不是仅仅写到 CPU 缓存。 实际上，从 Java 5 开始，volatil">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.wenzuo.net/assets/202109181009180.png">
+<meta property="og:image" content="https://cdn.wenzuo.net/assets/202109181009963.png">
+<meta property="og:image" content="https://cdn.wenzuo.net/assets/202109181015380.png">
+<meta property="article:published_time" content="2021-09-18T07:31:44.000Z">
+<meta property="article:modified_time" content="2022-01-27T06:38:59.044Z">
+<meta property="article:author" content="Catch">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="多线程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.wenzuo.net/assets/202109181009180.png"><title>Java Volatile关键字 | Catch Notebook</title><link ref="canonical" href="https://catch6.github.io/posts/551c330e.html"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" data-ad-client="ca-pub-2106789659977182" async=""></script><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: true,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: true,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/links/"><span class="header-nav-menu-item__icon"><i class="fas fa-link"></i></span><span class="header-nav-menu-item__text">友链</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Catch Notebook</div><div class="header-banner-info__subtitle">临渊羡鱼，不如退而结网。</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Java Volatile关键字</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-09-18</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-01-27</span></span><span class="post-meta-item post-meta-item--visitors"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value" id="busuanzi_value_page_pv"></span></span></div></header><div class="post-body"><blockquote>
+<p>原文地址 作者：Jakob Jenkov 译者：小龙虾</p>
+<p><em>转载自</em><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://ifeve.com/" >并发编程网 – ifeve.com</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</blockquote>
+<p>Java 的 volatile 关键字用于标记一个变量“应当存储在主存”。更确切地说，每次读取 volatile 变量，都应该从主存读取，而不是从 CPU 缓存读取。每次写入一个 volatile 变量，应该写到主存中，而不是仅仅写到 CPU 缓存。</p>
+<p>实际上，从 Java 5 开始，volatile 关键字除了保证 volatile 变量从主存读写外，还提供了更多的保障。我将在后面的章节中进行说明。</p>
+<span id="more"></span>
+
+
+        <h2 id="变量可见性问题"   >
+          <a href="#变量可见性问题" class="heading-link"><i class="fas fa-link"></i></a><a href="#变量可见性问题" class="headerlink" title="变量可见性问题"></a>变量可见性问题</h2>
+      <p>Java 的 volatile 关键字能保证变量修改后，对各个线程是可见的。这个听起来有些抽象，下面就详细说明。</p>
+<p>在一个多线程的应用中，线程在操作非 volatile 变量时，出于性能考虑，每个线程可能会将变量从主存拷贝到 CPU 缓存中。如果你的计算机有多个 CPU，每个线程可能会在不同的 CPU 中运行。这意味着，每个线程都有可能会把变量拷贝到各自 CPU 的缓存中，如下图所示：</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://cdn.wenzuo.net/assets/202109181009180.png"  alt="img">
+      </p>
+<p>对于非 volatile 变量，JVM 并不保证会从主存中读取数据到 CPU 缓存，或者将 CPU 缓存中的数据写到主存中。这会引起一些问题，在后面的章节中，我会来解释这些问题。</p>
+<p>试想一下，如果有两个以上的线程访问一个共享对象，这个共享对象包含一个 counter 变量，下面是代码示例：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SharedObject</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> counter = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>如果只有线程 1 修改了（自增）counter 变量，而线程 1 和线程 2 两个线程都会在某些时刻读取 counter 变量。</p>
+<p>如果 counter 变量没有声明成 volatile，则 counter 的值不保证会从 CPU 缓存写回到主存中。也就是说，CPU 缓存和主存中的 counter 变量值并不一致，如下图所示：</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://cdn.wenzuo.net/assets/202109181009963.png"  alt="img">
+      </p>
+<p>这就是“可见性”问题，线程看不到变量最新的值，因为其他线程还没有将变量值从 CPU 缓存写回到主存。一个线程中的修改对另外的线程是不可见的。</p>
+
+        <h2 id="volatile-可见性保证"   >
+          <a href="#volatile-可见性保证" class="heading-link"><i class="fas fa-link"></i></a><a href="#volatile-可见性保证" class="headerlink" title="volatile 可见性保证"></a>volatile 可见性保证</h2>
+      <p>Java 的 volatile 关键字就是设计用来解决变量可见性问题。将 counter 变量声明为 volatile，则在写入 counter 变量时，也会同时将变量值写入到主存中。同样的，在读取 counter 变量值时，也会直接从主存中读取。</p>
+<p>下面的代码演示了如果将 counter 声明为 volatile：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SharedObject</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">volatile</span> <span class="keyword">int</span> counter = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>将一个变量声明为 volatile，可以保证变量写入时对其他线程的可见。</p>
+<p>在上面的场景中，一个线程（T1）修改了 counter，另一个线程（T2）读取了 counter（但没有修改它），将 counter 变量声明为 volatile，就能保证写入 counter 变量后，对 T2 是可见的。</p>
+<p>然而，如果 T1 和 T2 都修改了 counter 的值，只是将 counter 声明为 volatile 还远远不够，后面会有更多的说明。</p>
+
+        <h2 id="完整的-volatile-可见性保证"   >
+          <a href="#完整的-volatile-可见性保证" class="heading-link"><i class="fas fa-link"></i></a><a href="#完整的-volatile-可见性保证" class="headerlink" title="完整的 volatile 可见性保证"></a>完整的 volatile 可见性保证</h2>
+      <p>实际上，volatile 的可见性保证并不是只对于 volatile 变量本身那么简单。可见性保证遵循以下规则：</p>
+<ul>
+<li>如果线程 A 写入一个 volatile 变量，线程 B 随后读取了同样的 volatile 变量，则线程 A 在写入 volatile 变量之前的所有可见的变量值，在线程 B 读取 volatile 变量后也同样是可见的。</li>
+<li>如果线程 A 读取一个 volatile 变量，那么线程 A 中所有可见的变量也会同样从主存重新读取。</li>
+</ul>
+<p>下面用一段代码来示例说明：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> years;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> months</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">int</span> days;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(<span class="keyword">int</span> years, <span class="keyword">int</span> months, <span class="keyword">int</span> days)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.years  = years;</span><br><span class="line">        <span class="keyword">this</span>.months = months;</span><br><span class="line">        <span class="keyword">this</span>.days   = days;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>update()方法写入 3 个变量，其中只有 days 变量是 volatile。</p>
+<p>完整的 volatile 可见性保证意味着，在写入 days 变量时，线程中所有可见变量也会写入到主存。也就是说，写入 days 变量时，years 和 months 也会同时被写入到主存。</p>
+<p>下面的代码读取了 years、months、days 变量：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> years;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> months</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">int</span> days;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">totalDays</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> total = <span class="keyword">this</span>.days;</span><br><span class="line">        total += months * <span class="number">30</span>;</span><br><span class="line">        total += years * <span class="number">365</span>;</span><br><span class="line">        <span class="keyword">return</span> total;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(<span class="keyword">int</span> years, <span class="keyword">int</span> months, <span class="keyword">int</span> days)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.years  = years;</span><br><span class="line">        <span class="keyword">this</span>.months = months;</span><br><span class="line">        <span class="keyword">this</span>.days   = days;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>请注意 totalDays()方法开始读取 days 变量值到 total 变量。在读取 days 变量值时，months 和 years 的值也会同时从主存读取。因此，按上面所示的顺序读取时，可以保证读取到 days、months、years 变量的最新值。</p>
+<blockquote>
+<p>译者注：可以将对 volatile 变量的读写理解为一个触发刷新的操作，写入 volatile 变量时，线程中的所有变量也都会触发写入主存。而读取 volatile 变量时，也同样会触发线程中所有变量从主存中重新读取。因此，应当尽量将 volatile 的写入操作放在最后，而将 volatile 的读取放在最前，这样就能连带将其他变量也进行刷新。上面的例子中，update()方法对 days 的赋值就是放在 years、months 之后，就是保证 years、months 也能将最新的值写入到主存，如果是放在两个变量之前，则 days 会写入主存，而 years、months 则不会。反过来，totalDays()方法则将 days 的读取放在最前面，就是为了能同时触发刷新 years、months 变量值，如果是放后面，则 years、months 就可能还是从 CPU 缓存中读取值，而不是从主存中获取最新值。</p>
+</blockquote>
+
+        <h2 id="指令重排问题"   >
+          <a href="#指令重排问题" class="heading-link"><i class="fas fa-link"></i></a><a href="#指令重排问题" class="headerlink" title="指令重排问题"></a>指令重排问题</h2>
+      <p>出于性能考虑，JVM 和 CPU 是允许对程序中的指令进行重排的，只要保证（重排后的）指令语义一致即可。如下代码为例：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> b = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">a++;</span><br><span class="line">b++;</span><br></pre></td></tr></table></div></figure>
+
+<p>这些指令可以按以下顺序重排，而不改变程序的语义：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line">a++;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> b = <span class="number">2</span>;</span><br><span class="line">b++;</span><br></pre></td></tr></table></div></figure>
+
+<p>然而，指令重排面临的一个问题就是对 volatile 变量的处理。还是以前面提到的 MyClass 类来说明：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> years;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> months</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">int</span> days;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(<span class="keyword">int</span> years, <span class="keyword">int</span> months, <span class="keyword">int</span> days)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.years  = years;</span><br><span class="line">        <span class="keyword">this</span>.months = months;</span><br><span class="line">        <span class="keyword">this</span>.days   = days;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>一旦 update()变量写了 days 值，则 years、months 的最新值也会写入到主存。但是，如果 JVM 重排了指令，比如按以下方式重排：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(<span class="keyword">int</span> years, <span class="keyword">int</span> months, <span class="keyword">int</span> days)</span></span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.days   = days;</span><br><span class="line">    <span class="keyword">this</span>.months = months;</span><br><span class="line">    <span class="keyword">this</span>.years  = years;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>在 days 被修改时，months、years 的值也会写入到主存，但这时进行写入，months、years 并不是新的值（译者注：即在 months、years 被赋新值之前，就触发了这两个变量值写入主存的操作，自然这两个变量在主存中的值就不是新值）。新的值自然对其他线程是不可见的。指令重排导致了程序语义的改变。</p>
+<p>Java 对此有一个解决方法，我们会在下一章节中说明。</p>
+
+        <h2 id="Java-volatile-Happens-Before-保证"   >
+          <a href="#Java-volatile-Happens-Before-保证" class="heading-link"><i class="fas fa-link"></i></a><a href="#Java-volatile-Happens-Before-保证" class="headerlink" title="Java volatile Happens-Before 保证"></a>Java volatile Happens-Before 保证</h2>
+      <p>为了解决指令重排的问题，Java 的 volatile 关键字在可见性之外，又提供了 happends-before 保证。happens-before 原则如下：</p>
+<ul>
+<li>如果有读写操作发生在写入 volatile 变量之前，读写其他变量的指令不能重排到写入 volatile 变量之后。写入一个 volatile 变量之前的读写操作，对 volatile 变量是有 happens-before 保证的。注意，如果是写入 volatile 之后，有读写其他变量的操作，那么这些操作指令是有可能被重排到写入 volatile 操作指令之前的。但反之则不成立。即可以把位于写入 volatile 操作指令之后的其他指令移到写入 volatile 操作指令之前，而不能把位于写入 volatile 操作指令之前的其他指令移到写入 volatile 操作指令之后。</li>
+<li>如果有读写操作发生在读取 volatile 变量之后，读写其他变量的指令不能重排到读取 volatile 变量之前。注意，如果是读取 volatile 之前，有读取其他变量的操作，那么这些操作指令是有可能被重排到读取 volatile 操作指令之后的。但反之则不成立。即可以把位于读取 volatile 操作指令之前的指令移到读取 volatile 操作指令之后，而不能把位于读取 volatile 操作指令之后的指令移到读取 volatile 操作指令之前。</li>
+</ul>
+<p>以上的 happens-before 原则为 volatile 关键字的可见性提供了强制保证。</p>
+<blockquote>
+<p>译者注：这两个原则读起来有些拗口（当然翻译也不足够好），其实就是不管 JVM 怎么去禁止/允许某些情况下的指令重排，最终就是保证“完整的 volatile 可见性保证”的那种效果，所以，只要理解了“完整的 volatile 可见性保证”的效果就足够了。</p>
+</blockquote>
+
+        <h2 id="volatile-并不总是可行的"   >
+          <a href="#volatile-并不总是可行的" class="heading-link"><i class="fas fa-link"></i></a><a href="#volatile-并不总是可行的" class="headerlink" title="volatile 并不总是可行的"></a>volatile 并不总是可行的</h2>
+      <p>虽然 volatile 关键字能保证 volatile 变量的所有读取都是直接从主存读取，所有写入都是直接写入到主存中，但在一些情形下，仅仅是将变量声明为 volatile 还是远远不够的。</p>
+<p>就像前面示例所说的，线程 1 写入共享变量 counter 的值，将 counter 声明为 volatile 已经足够保证线程 2 总是能获取到最新的值。</p>
+<p>事实上，多个线程都能写入共享的 volatile 变量，主存中也能存储正确的变量值，然而这有一个前提，变量新值的写入不能依赖于变量的旧值。换句话说，就是一个线程写入一个共享 volatile 变量值时，不需要先读取变量值，然后以此来计算出新的值。</p>
+<p>如果线程需要先读取一个 volatile 变量的值，以此来计算出一个新的值，那么 volatile 变量就不足够保证正确的可见性。（线程间）读写 volatile 变量的时间间隔很短，这将导致一个<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://ifeve.com/race-conditions-and-critical-sections/" >竞态条件</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>，多个线程同时读取了 volatile 变量相同的值，然后以此计算出了新的值，这时各个线程往主存中写回值，则会互相覆盖。</p>
+<p>多个线程对 counter 变量进行自增操作就是这样的情形，下面的章节会详细说明这种情形。</p>
+<p>设想一下，如果线程 1 将共享变量 counter 的值 0 读取到它的 CPU 缓存，然后自增为 1，而还没有将新值写回到主存。线程 2 这时从主存中读取的 counter 值依然是 0，依然放到它自身的 CPU 缓存中，然后同样将 counter 值自增为 1，同样也还没有将新值写回到主存。如下图所示：</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://cdn.wenzuo.net/assets/202109181015380.png"  alt="img">
+      </p>
+<p>从实际的情况来看，线程 1 和线程 2 现在就是不同步的。共享变量 counter 正确的值应该是 2，但各个线程中 CPU 缓存的值都是 1，而主存中的值依然是 0。这是很混乱的。即使线程最终将共享变量 counter 的值写回到主存，那值也明显是错的。</p>
+
+        <h2 id="何时使用-volatile"   >
+          <a href="#何时使用-volatile" class="heading-link"><i class="fas fa-link"></i></a><a href="#何时使用-volatile" class="headerlink" title="何时使用 volatile"></a>何时使用 volatile</h2>
+      <p>正如我前面所说，如果两个线程同时读写一个共享变量，仅仅使用 volatile 关键字是不够的。你应该使用 <span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://tutorials.jenkov.com/java-concurrency/synchronized.html" >synchronized</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> 来保证读写变量是原子的。（一个线程）读写 volatile 变量时，不会阻塞（其他）线程进行读写。你必须在关键的地方使用 synchronized 关键字来解决这个问题。</p>
+<p>除了 synchronized 方法，你还可以使用<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://tutorials.jenkov.com/java-util-concurrent/index.html" >java.util.concurrent</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>包提供的许多原子数据类型来解决这个问题。比如，<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://tutorials.jenkov.com/java-util-concurrent/atomiclong.html" >AtomicLong</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>或<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://tutorials.jenkov.com/java-util-concurrent/atomicreference.html" >AtomicReference</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>，或是其他的类。</p>
+<p>如果只有一个线程对 volatile 进行读写，而其他线程只是读取变量，这时，对于只是读取变量的线程来说，volatile 就已经可以保证读取到的是变量的最新值。如果没有把变量声明为 volatile，这就无法保证。</p>
+<p>volatile 关键字对 32 位和 64 位的变量都有效。</p>
+
+        <h2 id="volatile-的性能考量"   >
+          <a href="#volatile-的性能考量" class="heading-link"><i class="fas fa-link"></i></a><a href="#volatile-的性能考量" class="headerlink" title="volatile 的性能考量"></a>volatile 的性能考量</h2>
+      <p>读写 volatile 变量会导致变量从主存读写。从主存读写比从 CPU 缓存读写更加“昂贵”。访问一个 volatile 变量同样会禁止指令重排，而指令重排是一种提升性能的技术。因此，你应当只在需要保证变量可见性的情况下，才使用 volatile 变量。</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://catch6.github.io">Catch</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://catch6.github.io/posts/551c330e.html">https://catch6.github.io/posts/551c330e.html</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://catch6.github.io/tags/Java/">Java</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://catch6.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/posts/a258c787.html"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">最重要的JVM参数指南</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/posts/11c91f7a.html"><span class="paginator-prev__text">The java.util.concurrent Synchronizer Framework 中文翻译版</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E5%8F%AF%E8%A7%81%E6%80%A7%E9%97%AE%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">
+          变量可见性问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#volatile-%E5%8F%AF%E8%A7%81%E6%80%A7%E4%BF%9D%E8%AF%81"><span class="toc-number">2.</span> <span class="toc-text">
+          volatile 可见性保证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%8C%E6%95%B4%E7%9A%84-volatile-%E5%8F%AF%E8%A7%81%E6%80%A7%E4%BF%9D%E8%AF%81"><span class="toc-number">3.</span> <span class="toc-text">
+          完整的 volatile 可见性保证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E9%87%8D%E6%8E%92%E9%97%AE%E9%A2%98"><span class="toc-number">4.</span> <span class="toc-text">
+          指令重排问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java-volatile-Happens-Before-%E4%BF%9D%E8%AF%81"><span class="toc-number">5.</span> <span class="toc-text">
+          Java volatile Happens-Before 保证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#volatile-%E5%B9%B6%E4%B8%8D%E6%80%BB%E6%98%AF%E5%8F%AF%E8%A1%8C%E7%9A%84"><span class="toc-number">6.</span> <span class="toc-text">
+          volatile 并不总是可行的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%95%E6%97%B6%E4%BD%BF%E7%94%A8-volatile"><span class="toc-number">7.</span> <span class="toc-text">
+          何时使用 volatile</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#volatile-%E7%9A%84%E6%80%A7%E8%83%BD%E8%80%83%E9%87%8F"><span class="toc-number">8.</span> <span class="toc-text">
+          volatile 的性能考量</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="https://cdn.wenzuo.net/catch6-github-io/base/avatar.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">临渊羡鱼，不如退而结网。</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">43</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">3</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">20</div><div class="sidebar-ov-state-item__name">标签</div></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2015~2022</span><span class="footer__devider"></span><span>Catch</span></div><div class="busuanzi"><span class="busuanzi-siteuv"><span class="busuanzi-siteuv__icon"><i class="fas fa-user"></i></span><span class="busuanzi-siteuv__info">访问人数</span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_uv"></span></span><span class="busuanzi-sitepv"><span class="busuanzi-siteuv__icon"><i class="fas fa-eye"></i></span><span class="busuanzi-siteuv__info">浏览总量</span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_pv"></span></span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: '7eRzjmkpxcLvDgBh4fHv7Pok-gzGzoHsz',
+    appKey: 'NXXOEJbQJ0M6Fn3eOAorvHvD',
+    notify: false,
+    verify: false,
+    placeholder: '开始你的评论...',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: false,
+    recordIP: true,
+    lang: '' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>

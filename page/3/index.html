@@ -1,0 +1,442 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="https://cdn.wenzuo.net/catch6-github-io/base/avatar.jpg?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="https://cdn.wenzuo.net/catch6-github-io/base/avatar.jpg?v=2.6.2" type="image/png" sizes="32x32"><meta name="baidu-site-verification" content="code-4sfQ80iYvV"><meta name="description" content="Catch 的个人笔记集">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Catch Notebook">
+<meta property="og:url" content="https://catch6.github.io/page/3/index.html">
+<meta property="og:site_name" content="Catch Notebook">
+<meta property="og:description" content="Catch 的个人笔记集">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Catch">
+<meta property="article:tag" content="互联网,编程,程序,分布式,Java">
+<meta name="twitter:card" content="summary"><title>Catch Notebook | 临渊羡鱼，不如退而结网。</title><link ref="canonical" href="https://catch6.github.io/page/3/index.html"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" data-ad-client="ca-pub-2106789659977182" async=""></script><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: true,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: true,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/links/"><span class="header-nav-menu-item__icon"><i class="fas fa-link"></i></span><span class="header-nav-menu-item__text">友链</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Catch Notebook</div><div class="header-banner-info__subtitle">临渊羡鱼，不如退而结网。</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/posts/608b95b5.html">SpringBoot异步线程池</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-02-18</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-01-27</span></span></div></header><div class="post-body"><div class="post-excerpt"><h2 id="概述"   >
+          <a href="#概述" class="heading-link"><i class="fas fa-link"></i></a><a href="#概述" class="headerlink" title="概述"></a>概述</h2>
+      <p>在实际开发中，大多数请求都是同步执行，但有的时候请求中的某个操作可能会非常耗时，我们通常会采用异步操作，下面讲解如何在 Spring 中使用异步线程池</p></div><div class="post-readmore"><a class="post-readmore__link" href="/posts/608b95b5.html"><span class="post-readmore__text">阅读全文</span><span class="post-readmore__icon"><i class="fas fa-long-arrow-alt-right"></i></span></a></div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/posts/93e2a907.html">Mac 上 Microsoft Autoupdate 问题解决</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-01-27</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-01-27</span></span></div></header><div class="post-body"><div class="post-excerpt"><span id="more"></span>
+
+
+        <h2 id="提示-更新已在进行中，请稍后再试"   >
+          <a href="#提示-更新已在进行中，请稍后再试" class="heading-link"><i class="fas fa-link"></i></a><a href="#提示-更新已在进行中，请稍后再试" class="headerlink" title="提示[更新已在进行中，请稍后再试]"></a>提示[更新已在进行中，请稍后再试]</h2>
+      <ol>
+<li>打开活动监视器</li>
+<li>找到 <code>mircosoft autoupdate assistant</code> 的进程, 关闭这个进程</li>
+<li>再次点击更新即可</li>
+</ol>
+
+        <h2 id="一直停留在正在安装状态"   >
+          <a href="#一直停留在正在安装状态" class="heading-link"><i class="fas fa-link"></i></a><a href="#一直停留在正在安装状态" class="headerlink" title="一直停留在正在安装状态"></a>一直停留在正在安装状态</h2>
+      <p>打开 iterm2, 输入以下命令打印下载的安装包所在文件夹</p>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /private/var/folders -iname <span class="string">&quot;*.pkg&quot;</span> 2&amp;&gt;/dev/null</span><br></pre></td></tr></table></div></figure>
+
+<p>使用 finder 打开该目录,双击安装即可</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/posts/b9565191.html">Mybatis 的常用技巧</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-01-26</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-01-27</span></span></div></header><div class="post-body"><div class="post-excerpt"><span id="more"></span>
+
+
+        <h2 id="多条记录合并为一行"   >
+          <a href="#多条记录合并为一行" class="heading-link"><i class="fas fa-link"></i></a><a href="#多条记录合并为一行" class="headerlink" title="多条记录合并为一行"></a>多条记录合并为一行</h2>
+      <p>假如有表 stu, 有 name 列如下</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>小明</td>
+</tr>
+<tr>
+<td>小李</td>
+</tr>
+<tr>
+<td>小米</td>
+</tr>
+</tbody></table></div>
+<p>现在要把 name 列拼接为一行, 如 <code>小明,小李,小米</code>, 可以使用如下 sql</p>
+<figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">GROUP_CONCAT</span>(<span class="keyword">name</span> SEPARATOR <span class="string">&#x27;,&#x27;</span>) <span class="keyword">AS</span> <span class="keyword">names</span> <span class="keyword">FROM</span> stu;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h2 id="批量插入"   >
+          <a href="#批量插入" class="heading-link"><i class="fas fa-link"></i></a><a href="#批量插入" class="headerlink" title="批量插入"></a>批量插入</h2>
+      <figure class="highlight xml"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">&quot;batchInsert&quot;</span> <span class="attr">parameterType</span>=<span class="string">&quot;com.xxx.UserDTO&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">useGeneratedKeys</span>=<span class="string">&quot;true&quot;</span> <span class="attr">keyProperty</span>=<span class="string">&quot;id&quot;</span>&gt;</span></span><br><span class="line">    INSERT INTO t_user</span><br><span class="line">    (name, parent_name, create_time)</span><br><span class="line">    VALUES</span><br><span class="line">    <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">&quot;list&quot;</span> <span class="attr">item</span>=<span class="string">&quot;item&quot;</span> <span class="attr">separator</span>=<span class="string">&quot;,&quot;</span>&gt;</span></span><br><span class="line">        (#&#123;item.name&#125;, #&#123;item.parentName&#125;, now())</span><br><span class="line">    <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br></pre></td></tr></table></div></figure>
+
+
+        <h2 id="批量更新"   >
+          <a href="#批量更新" class="heading-link"><i class="fas fa-link"></i></a><a href="#批量更新" class="headerlink" title="批量更新"></a>批量更新</h2>
+      <figure class="highlight xml"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span>=<span class="string">&quot;batchUpdate&quot;</span> <span class="attr">parameterType</span>=<span class="string">&quot;com.xxx.UserDTO&quot;</span>&gt;</span></span><br><span class="line">    UPDATE t_user</span><br><span class="line">    <span class="tag">&lt;<span class="name">trim</span> <span class="attr">prefix</span>=<span class="string">&quot;set&quot;</span> <span class="attr">suffixOverrides</span>=<span class="string">&quot;,&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">trim</span> <span class="attr">prefix</span>=<span class="string">&quot;name =case&quot;</span> <span class="attr">suffix</span>=<span class="string">&quot;end,&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">&quot;list&quot;</span> <span class="attr">item</span>=<span class="string">&quot;item&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;item.name !=null&quot;</span>&gt;</span></span><br><span class="line">                    when id=#&#123;item.id&#125; then #&#123;item.name&#125;</span><br><span class="line">                <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">trim</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">trim</span> <span class="attr">prefix</span>=<span class="string">&quot;parent_name =case&quot;</span> <span class="attr">suffix</span>=<span class="string">&quot;end,&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">&quot;list&quot;</span> <span class="attr">item</span>=<span class="string">&quot;item&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;item.parentName !=null&quot;</span>&gt;</span></span><br><span class="line">                    when id=#&#123;item.id&#125; then #&#123;item.parentName&#125;</span><br><span class="line">                <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">trim</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">trim</span>&gt;</span></span><br><span class="line">    where id in</span><br><span class="line">    <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">&quot;list&quot;</span> <span class="attr">item</span>=<span class="string">&quot;item&quot;</span> <span class="attr">separator</span>=<span class="string">&quot;,&quot;</span> <span class="attr">open</span>=<span class="string">&quot;(&quot;</span> <span class="attr">close</span>=<span class="string">&quot;)&quot;</span>&gt;</span></span><br><span class="line">        #&#123;item.id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">update</span>&gt;</span></span><br></pre></td></tr></table></div></figure>
+
+
+        <h2 id="in-有序查询"   >
+          <a href="#in-有序查询" class="heading-link"><i class="fas fa-link"></i></a><a href="#in-有序查询" class="headerlink" title="in() 有序查询"></a>in() 有序查询</h2>
+      <figure class="highlight xml"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;findByIdsWithSorted&quot;</span> <span class="attr">parameterType</span>=<span class="string">&quot;java.lang.Long&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;com.xxx.UserDTO&quot;</span>&gt;</span></span><br><span class="line">    SELECT *</span><br><span class="line">    from t_user WHERE id IN</span><br><span class="line">    <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">&quot;list&quot;</span> <span class="attr">item</span>=<span class="string">&quot;item&quot;</span> <span class="attr">open</span>=<span class="string">&quot;(&quot;</span> <span class="attr">close</span>=<span class="string">&quot;)&quot;</span> <span class="attr">separator</span>=<span class="string">&quot;,&quot;</span>&gt;</span></span><br><span class="line">        #&#123;item&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">&quot;list&quot;</span> <span class="attr">item</span>=<span class="string">&quot;item&quot;</span> <span class="attr">open</span>=<span class="string">&quot;order by field(id,&quot;</span> <span class="attr">close</span>=<span class="string">&quot;)&quot;</span> <span class="attr">separator</span>=<span class="string">&quot;,&quot;</span>&gt;</span></span><br><span class="line">        #&#123;item&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></div></figure>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/posts/ffb836f.html">Mysql 配置参数优化</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-01-25</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-01-27</span></span></div></header><div class="post-body"><div class="post-excerpt"><span id="more"></span>
+
+
+        <h2 id="优化最大连接数"   >
+          <a href="#优化最大连接数" class="heading-link"><i class="fas fa-link"></i></a><a href="#优化最大连接数" class="headerlink" title="优化最大连接数"></a>优化最大连接数</h2>
+      <p><code>max_connections</code> 是 MySQL 最大并发连接数，默认值是 151<br>MySQL 允许的最大连接数上限是 16384<br>实际连接数是最大连接数的 85% 较为合适</p>
+<p>查询数据库目前设置的最大并发连接数是多少?</p>
+<figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> <span class="keyword">VARIABLES</span> <span class="keyword">LIKE</span> <span class="string">&#x27;max_connections&#x27;</span>;</span><br></pre></td></tr></table></div></figure>
+
+<p>查询数据库目前实际连接的并发数是多少</p>
+<figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> <span class="keyword">STATUS</span> <span class="keyword">LIKE</span> <span class="string">&#x27;max_used_connections&#x27;</span>;</span><br></pre></td></tr></table></div></figure>
+
+<p>在 MySQL 配置文件 <code>/etc/my.cnf</code> 中设置 <code>max_connections=3000</code>，表示修改最大连接数为 3000，需要重启 MySQL 才能生效</p>
+<p>MySQL 为每个连接创建缓冲区，所以不应该盲目上调最大连接数，如果最大连接数达到了上面设置的 3000，会消耗大约 800M 内存。</p>
+
+        <h2 id="优化请求堆栈"   >
+          <a href="#优化请求堆栈" class="heading-link"><i class="fas fa-link"></i></a><a href="#优化请求堆栈" class="headerlink" title="优化请求堆栈"></a>优化请求堆栈</h2>
+      <p>back_log 是存放执行请求的堆栈大小，默认值是 50<br>该值设置为最大并发连接数的 20%～ 30% 较为合适<br>同样是在 MySQL 配置文件 <code>/etc/my.cnf</code> 中，设置 <code>back_log=600</code>，修改后需要重启 MySQL 才能生效</p>
+
+        <h2 id="修改并发线程数"   >
+          <a href="#修改并发线程数" class="heading-link"><i class="fas fa-link"></i></a><a href="#修改并发线程数" class="headerlink" title="修改并发线程数"></a>修改并发线程数</h2>
+      <p><code>innodb_thread_concurrency</code> 代表并发线程数，默认是 0，表示没有设置线程数量的上限。<br>不是分配给 MySQL 的线程越多越好，线程多反而会损耗 cpu 性能，导致速度变慢<br>并发线程数应该设置为 cpu 核心数的两倍</p>
+<p>在 MySQL 配置文件 <code>/etc/my.cnf</code> 中，设置 <code>innodb_thread_concurrency=8</code></p>
+<p>查看 cpu 型号</p>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c</span><br></pre></td></tr></table></div></figure>
+
+<p>查看 cpu 核心数</p>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /proc/cpuinfo | grep <span class="string">&quot;cores&quot;</span>|uniq</span><br></pre></td></tr></table></div></figure>
+
+
+        <h2 id="修改连接超时时间"   >
+          <a href="#修改连接超时时间" class="heading-link"><i class="fas fa-link"></i></a><a href="#修改连接超时时间" class="headerlink" title="修改连接超时时间"></a>修改连接超时时间</h2>
+      <p><code>wait-timeout</code> 是超时时间，单位是秒<br>连接默认超时为 8 小时，连接长期不用又不销毁，浪费资源<br>设置超时时间为 10 分钟 <code>wait-timeout=600</code></p>
+
+        <h2 id="InnoDB-缓存"   >
+          <a href="#InnoDB-缓存" class="heading-link"><i class="fas fa-link"></i></a><a href="#InnoDB-缓存" class="headerlink" title="InnoDB 缓存"></a>InnoDB 缓存</h2>
+      <p>修改 InnoDB 缓存大小</p>
+<p><code>innodb_buffer_pool_size</code> 是 InnoDB 的缓存容量，默认是 128M</p>
+<p>InnoDB 缓存的大小可以设置为主机内存的 70%～ 80%</p>
+<p>在 MySQL 配置文件中，会有一行被注释的配置：<code># innodb_buffer_pool_size = 128M</code></p>
+<p>上方注释也写明了，建议设置物理内存的 70%</p>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Remove leading # and set to the amount of RAM for the most important data</span></span><br><span class="line"><span class="comment"># cache in MySQL. Start at 70% of total RAM for dedicated server, else 10%.</span></span><br><span class="line"><span class="comment"># innodb_buffer_pool_size = 128M</span></span><br></pre></td></tr></table></div></figure>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/posts/b33acd9a.html">oh-my-zsh国内镜像安装和更新方法</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-01-20</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-01-27</span></span></div></header><div class="post-body"><div class="post-excerpt"><h2 id="下载码云安装包"   >
+          <a href="#下载码云安装包" class="heading-link"><i class="fas fa-link"></i></a><a href="#下载码云安装包" class="headerlink" title="下载码云安装包"></a>下载码云安装包</h2>
+      <figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install.sh</span><br></pre></td></tr></table></div></figure></div><div class="post-readmore"><a class="post-readmore__link" href="/posts/b33acd9a.html"><span class="post-readmore__text">阅读全文</span><span class="post-readmore__icon"><i class="fas fa-long-arrow-alt-right"></i></span></a></div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/posts/944c70de.html">Linux按日期备份命令</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-01-12</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-01-27</span></span></div></header><div class="post-body"><div class="post-excerpt"><span id="more"></span>
+
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 把 nginx.conf 及 sites-available, sites-enabled 目录压缩以日期结尾备份</span></span><br><span class="line">tar -czvf nginx_$(date +<span class="string">&#x27;%F_%H-%M-%S&#x27;</span>).tar.gz nginx.conf sites-available/ sites-enabled/</span><br></pre></td></tr></table></div></figure>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/posts/952740e4.html">Docker微容器 Alpine Linux</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-01-10</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-01-27</span></span></div></header><div class="post-body"><div class="post-excerpt"><h2 id="简介"   >
+          <a href="#简介" class="heading-link"><i class="fas fa-link"></i></a><a href="#简介" class="headerlink" title="简介"></a>简介</h2>
+      <p>使用 Docker 创建容器时，基础镜像通常选择 Ubuntu 或 Centos，不管哪个镜像的大小都在 100MB 以上。</p>
+<p>Alpine Linux 是一个面向安全的轻型的 Linux 发行版。</p>
+<p>Alpine Linux 采用了 <span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://busybox.net/" >musl libc</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> 和 <span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://busybox.net/" >busybox</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> 以减小系统的体积和运行时资源消耗。</p>
+<p>在保持瘦身的同时，Alpine Linux 还提供了自己的包管理工具 apk。</p>
+<p>关键的是，相比于其他 Linux 的 Docker 镜像，它的容量非常小，仅仅只有 5MB。</p>
+<p>Alpine Linux 的官网：</p>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://www.alpinelinux.org/" >http://www.alpinelinux.org/</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://pkgs.alpinelinux.org/packages" >https://pkgs.alpinelinux.org/packages</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p></div><div class="post-readmore"><a class="post-readmore__link" href="/posts/952740e4.html"><span class="post-readmore__text">阅读全文</span><span class="post-readmore__icon"><i class="fas fa-long-arrow-alt-right"></i></span></a></div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/posts/3a973f0f.html">Springboot 使用 Docker 部署</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-01-08</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-01-27</span></span></div></header><div class="post-body"><div class="post-excerpt"><p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://cdn.wenzuo.net/assets/202201101204385.png" >
+      </p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/posts/e81d826e.html">Docker 远程安全访问</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-01-08</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-01-27</span></span></div></header><div class="post-body"><div class="post-excerpt"><h2 id="直接设置任意远程访问存在的问题"   >
+          <a href="#直接设置任意远程访问存在的问题" class="heading-link"><i class="fas fa-link"></i></a><a href="#直接设置任意远程访问存在的问题" class="headerlink" title="直接设置任意远程访问存在的问题"></a>直接设置任意远程访问存在的问题</h2>
+      <p>因为 docker 默认是 root 权限，允许所有人访问，直接把 2375 端口暴露在外网相当于直接把服务器的 root 权限拱手送人，因此我们需要构建一个加密的 TCP 链接，以 Https 的方式连接到远程的 docker 服务器</p></div><div class="post-readmore"><a class="post-readmore__link" href="/posts/e81d826e.html"><span class="post-readmore__text">阅读全文</span><span class="post-readmore__icon"><i class="fas fa-long-arrow-alt-right"></i></span></a></div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/posts/127f2230.html">虚拟机安装Debian</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-01-08</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-01-27</span></span></div></header><div class="post-body"><div class="post-excerpt"><h2 id="下载镜像"   >
+          <a href="#下载镜像" class="heading-link"><i class="fas fa-link"></i></a><a href="#下载镜像" class="headerlink" title="下载镜像"></a>下载镜像</h2>
+      <p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://mirrors.163.com/debian-cd/10.7.0/amd64/iso-cd/debian-10.7.0-amd64-netinst.iso" >http://mirrors.163.com/debian-cd/10.7.0/amd64/iso-cd/debian-10.7.0-amd64-netinst.iso</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>下载完成后, 打开 PD, 选择镜像安装即可, 在选择安装软件时我选择的: ssh server 和 标准工具集</p></div><div class="post-readmore"><a class="post-readmore__link" href="/posts/127f2230.html"><span class="post-readmore__text">阅读全文</span><span class="post-readmore__icon"><i class="fas fa-long-arrow-alt-right"></i></span></a></div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/2/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="https://cdn.wenzuo.net/catch6-github-io/base/avatar.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">临渊羡鱼，不如退而结网。</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">43</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">3</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">20</div><div class="sidebar-ov-state-item__name">标签</div></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2015~2022</span><span class="footer__devider"></span><span>Catch</span></div><div class="busuanzi"><span class="busuanzi-siteuv"><span class="busuanzi-siteuv__icon"><i class="fas fa-user"></i></span><span class="busuanzi-siteuv__info">访问人数</span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_uv"></span></span><span class="busuanzi-sitepv"><span class="busuanzi-siteuv__icon"><i class="fas fa-eye"></i></span><span class="busuanzi-siteuv__info">浏览总量</span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_pv"></span></span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/quicklink@1.0.1/dist/quicklink.umd.js"></script><script>function initQuicklink() {
+  quicklink({
+    timeout: '10000',
+    priority: true,
+    ignores: [uri => uri.includes('#'), uri => uri === 'https://catch6.github.io/page/3/', /\/api\/?/,uri => uri.includes('.xml'),uri => uri.includes('.zip'),(uri, el) => el.hasAttribute('nofollow'),(uri, el) => el.hasAttribute('noprefetch')]
+  });
+}
+
+if (false || false) {
+  initQuicklink();
+} else {
+  window.addEventListener('DOMContentLoaded', initQuicklink, false);
+}</script><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>

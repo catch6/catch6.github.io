@@ -1,0 +1,968 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="https://cdn.wenzuo.net/catch6-github-io/base/avatar.jpg?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="https://cdn.wenzuo.net/catch6-github-io/base/avatar.jpg?v=2.6.2" type="image/png" sizes="32x32"><meta name="baidu-site-verification" content="code-4sfQ80iYvV"><meta name="description" content="Catch 的个人笔记集">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Catch Notebook">
+<meta property="og:url" content="https://catch6.github.io/index.html">
+<meta property="og:site_name" content="Catch Notebook">
+<meta property="og:description" content="Catch 的个人笔记集">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Catch">
+<meta property="article:tag" content="互联网,编程,程序,分布式,Java">
+<meta name="twitter:card" content="summary"><title>Catch Notebook | 临渊羡鱼，不如退而结网。</title><link ref="canonical" href="https://catch6.github.io/index.html"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" data-ad-client="ca-pub-2106789659977182" async=""></script><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: true,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: true,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/links/"><span class="header-nav-menu-item__icon"><i class="fas fa-link"></i></span><span class="header-nav-menu-item__text">友链</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Catch Notebook</div><div class="header-banner-info__subtitle">临渊羡鱼，不如退而结网。</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/posts/bd19161c.html">设计模式之桥接模式</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-01-27</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-01-27</span></span></div></header><div class="post-body"><div class="post-excerpt"><p>在 GoF 的《设计模式》一书中，桥接模式被定义为：“将抽象和实现解耦，让它们可以独立变化。”定义中的“抽象”，指的并非“抽象类”或“接口”，而是被抽象出来的一套“类库”，它只包含骨架代码，真正的业务逻辑需要委派给定义中的“实现”来完成。而定义中的“实现”，也并非“接口的实现类”，而是一套独立的“类库”。</p>
+
+        <h2 id="应用场景"   >
+          <a href="#应用场景" class="heading-link"><i class="fas fa-link"></i></a><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2>
+      <p>系统可能有多个维度，每个维度都有可能变化。</p>
+
+        <h2 id="类图"   >
+          <a href="#类图" class="heading-link"><i class="fas fa-link"></i></a><a href="#类图" class="headerlink" title="类图"></a>类图</h2>
+      <p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://cdn.wenzuo.net/assets/202201251147699.png"  alt="类图">
+      </p>
+<p>将 Color 类组合在 Shape 中来将形状和颜色解耦，各自维护各自的变化，这里体现了组合优于继承的设计原则。</p>
+<p>桥接模式的引入会增加系统的理解与设计难度，由于聚合关联关系建立在抽象层，要求开发者针对抽象进行设计与编程。</p>
+
+        <h2 id="代码实现"   >
+          <a href="#代码实现" class="heading-link"><i class="fas fa-link"></i></a><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2>
+      <p>Color</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Color</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">paint</span><span class="params">(String shape)</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>Red</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Red</span> <span class="keyword">extends</span> <span class="title">Color</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">paint</span><span class="params">(String shape)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;红色的&quot;</span> + shape);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>Green</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Green</span> <span class="keyword">extends</span> <span class="title">Color</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">paint</span><span class="params">(String shape)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;绿色的&quot;</span> + shape);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>Shape</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> Color color;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setColor</span><span class="params">(Color color)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.color = color;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>Circle</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Circle</span> <span class="keyword">extends</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        color.paint(<span class="string">&quot;圆形&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>Square</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Square</span> <span class="keyword">extends</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        color.paint(<span class="string">&quot;正方形&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>Main</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Shape shape;</span><br><span class="line">        Color color;</span><br><span class="line"></span><br><span class="line">        color = <span class="keyword">new</span> Red();</span><br><span class="line">        shape = <span class="keyword">new</span> Circle();</span><br><span class="line">        shape.setColor(color);</span><br><span class="line">        shape.draw();</span><br><span class="line"></span><br><span class="line">        color = <span class="keyword">new</span> Green();</span><br><span class="line">        shape = <span class="keyword">new</span> Square();</span><br><span class="line">        shape.setColor(color);</span><br><span class="line">        shape.draw();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>至此，我们已经完成了桥接模式的学习。桥接模式在实际项目中并不常用，这里我们了解认识即可。</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/posts/907a70d0.html">设计模式之代理模式</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-01-27</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-01-27</span></span></div></header><div class="post-body"><div class="post-excerpt"><blockquote>
+<p>代理模式是一种结构型设计模式。结构型模式主要总结了一些类或对象组合在一起的经典结构，这些经典的结构可以解决特定应用场景的问题。结构型模式包括：代理模式、桥接模式、装饰器模式、适配器模式、门面模式、组合模式、享元模式。</p>
+</blockquote>
+
+        <h2 id="代理模式的应用场景"   >
+          <a href="#代理模式的应用场景" class="heading-link"><i class="fas fa-link"></i></a><a href="#代理模式的应用场景" class="headerlink" title="代理模式的应用场景"></a>代理模式的应用场景</h2>
+      <ul>
+<li>业务系统的非功能性需求开发。比如：监控、统计、鉴权、限流、事务、幂等、日志。我们将这些附加功能与业务功能解耦，放到代理类中统一处理，让程序员只需要关注业务方面的开发。</li>
+<li>RPC、缓存中应用。RPC 框架也可以看作一种代理模式；假设我们要开发一个接口请求的缓存功能，对于某些接口请求，如果入参相同，在设定的过期时间内，直接返回缓存结果，而不用重新进行逻辑处理。</li>
+</ul>
+<p>代理模式分为静态代理和动态代理。静态代理的代理对象，在程序编译时已经写好 Java 文件了，直接 new 一个代理对象即可。动态代理产生代理对象的时机是运行时动态生成，它没有 Java 源文件，直接生成字节码文件实例化代理对象。</p>
+<p>静态代理的实现有两种：通过接口和通过继承。</p>
+
+        <h2 id="静态代理-通过接口方式"   >
+          <a href="#静态代理-通过接口方式" class="heading-link"><i class="fas fa-link"></i></a><a href="#静态代理-通过接口方式" class="headerlink" title="静态代理 - 通过接口方式"></a>静态代理 - 通过接口方式</h2>
+      
+        <h3 id="类图"   >
+          <a href="#类图" class="heading-link"><i class="fas fa-link"></i></a><a href="#类图" class="headerlink" title="类图"></a>类图</h3>
+      <p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://cdn.wenzuo.net/assets/202201241513198.png"  alt="通过接口方式的类图">
+      </p>
+
+        <h3 id="代码实现"   >
+          <a href="#代码实现" class="heading-link"><i class="fas fa-link"></i></a><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3>
+      
+        <h4 id="UserService"   >
+          <a href="#UserService" class="heading-link"><i class="fas fa-link"></i></a><a href="#UserService" class="headerlink" title="UserService"></a>UserService</h4>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Boolean <span class="title">login</span><span class="params">(String username, String password)</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h4 id="UserServiceImpl"   >
+          <a href="#UserServiceImpl" class="heading-link"><i class="fas fa-link"></i></a><a href="#UserServiceImpl" class="headerlink" title="UserServiceImpl"></a>UserServiceImpl</h4>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceImpl</span> <span class="keyword">implements</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Boolean <span class="title">login</span><span class="params">(String username, String password)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;admin&quot;</span>.equals(username) &amp;&amp; <span class="string">&quot;admin&quot;</span>.equals(password);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h4 id="UserServiceProxy"   >
+          <a href="#UserServiceProxy" class="heading-link"><i class="fas fa-link"></i></a><a href="#UserServiceProxy" class="headerlink" title="UserServiceProxy"></a>UserServiceProxy</h4>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceProxy</span> <span class="keyword">implements</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> UserService userService;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">UserServiceProxy</span><span class="params">(UserService userService)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.userService = userService;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Boolean <span class="title">login</span><span class="params">(String username, String password)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> t1 = System.nanoTime();</span><br><span class="line">        System.out.println(<span class="string">&quot;start login&quot;</span>);</span><br><span class="line">        Boolean result = userService.login(username, password);</span><br><span class="line">        System.out.println(<span class="string">&quot;end login&quot;</span>);</span><br><span class="line">        <span class="keyword">long</span> t2 = System.nanoTime();</span><br><span class="line">        System.out.println(<span class="string">&quot;time: &quot;</span> + (t2 - t1) + <span class="string">&quot;ns&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h4 id="Main"   >
+          <a href="#Main" class="heading-link"><i class="fas fa-link"></i></a><a href="#Main" class="headerlink" title="Main"></a>Main</h4>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        UserService userService = <span class="keyword">new</span> UserServiceProxy(<span class="keyword">new</span> UserServiceImpl());</span><br><span class="line">        Boolean result = userService.login(<span class="string">&quot;admin&quot;</span>, <span class="string">&quot;admin&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;result: &quot;</span> + result);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h2 id="静态代理-通过继承方式"   >
+          <a href="#静态代理-通过继承方式" class="heading-link"><i class="fas fa-link"></i></a><a href="#静态代理-通过继承方式" class="headerlink" title="静态代理 - 通过继承方式"></a>静态代理 - 通过继承方式</h2>
+      
+        <h3 id="类图-1"   >
+          <a href="#类图-1" class="heading-link"><i class="fas fa-link"></i></a><a href="#类图-1" class="headerlink" title="类图"></a>类图</h3>
+      <p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://cdn.wenzuo.net/assets/202201241514975.png"  alt="通过继承方式的类图">
+      </p>
+
+        <h3 id="代码实现-1"   >
+          <a href="#代码实现-1" class="heading-link"><i class="fas fa-link"></i></a><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h3>
+      
+        <h4 id="UserService-1"   >
+          <a href="#UserService-1" class="heading-link"><i class="fas fa-link"></i></a><a href="#UserService-1" class="headerlink" title="UserService"></a>UserService</h4>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Boolean <span class="title">login</span><span class="params">(String username, String password)</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h4 id="UserServiceImpl-1"   >
+          <a href="#UserServiceImpl-1" class="heading-link"><i class="fas fa-link"></i></a><a href="#UserServiceImpl-1" class="headerlink" title="UserServiceImpl"></a>UserServiceImpl</h4>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceImpl</span> <span class="keyword">implements</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Boolean <span class="title">login</span><span class="params">(String username, String password)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;admin&quot;</span>.equals(username) &amp;&amp; <span class="string">&quot;admin&quot;</span>.equals(password);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h4 id="UserServiceProxy-1"   >
+          <a href="#UserServiceProxy-1" class="heading-link"><i class="fas fa-link"></i></a><a href="#UserServiceProxy-1" class="headerlink" title="UserServiceProxy"></a>UserServiceProxy</h4>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceProxy</span> <span class="keyword">extends</span> <span class="title">UserServiceImpl</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Boolean <span class="title">login</span><span class="params">(String username, String password)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> t1 = System.nanoTime();</span><br><span class="line">        System.out.println(<span class="string">&quot;start login&quot;</span>);</span><br><span class="line">        Boolean result = <span class="keyword">super</span>.login(username, password);</span><br><span class="line">        System.out.println(<span class="string">&quot;end login&quot;</span>);</span><br><span class="line">        <span class="keyword">long</span> t2 = System.nanoTime();</span><br><span class="line">        System.out.println(<span class="string">&quot;time: &quot;</span> + (t2 - t1) + <span class="string">&quot;ns&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h4 id="Main-1"   >
+          <a href="#Main-1" class="heading-link"><i class="fas fa-link"></i></a><a href="#Main-1" class="headerlink" title="Main"></a>Main</h4>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        UserService userService = <span class="keyword">new</span> UserServiceProxy();</span><br><span class="line">        Boolean result = userService.login(<span class="string">&quot;admin&quot;</span>, <span class="string">&quot;admin&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;result: &quot;</span> + result);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h2 id="动态代理"   >
+          <a href="#动态代理" class="heading-link"><i class="fas fa-link"></i></a><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h2>
+      <p>上面的代码实现有两个问题：</p>
+<ol>
+<li>我们需要在代理类中，将原始类中的所有的方法，都重新实现一遍，并且为每个方法都附加相似的代码逻辑。</li>
+<li>如果要添加的附加功能的类有不止一个，我们需要针对每个类都创建一个代理类。</li>
+</ol>
+<p>这时我们就需要用到<strong>动态代理</strong>（Dynamic Proxy），就是我们不事先为每个原始类编写代理类，而是在运行的时候，动态地创建原始类对应的代理类，然后在系统中用代理类替换掉原始类。</p>
+
+        <h3 id="如何实现动态代理呢？"   >
+          <a href="#如何实现动态代理呢？" class="heading-link"><i class="fas fa-link"></i></a><a href="#如何实现动态代理呢？" class="headerlink" title="如何实现动态代理呢？"></a>如何实现动态代理呢？</h3>
+      <p>Java 语言本身就已经提供了动态代理的语法（实际上，动态代理底层依赖的就是 Java 的反射语法）。</p>
+
+        <h3 id="类图-2"   >
+          <a href="#类图-2" class="heading-link"><i class="fas fa-link"></i></a><a href="#类图-2" class="headerlink" title="类图"></a>类图</h3>
+      <p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://cdn.wenzuo.net/assets/202201241619846.png"  alt="动态代理类图">
+      </p>
+
+        <h3 id="UserService-2"   >
+          <a href="#UserService-2" class="heading-link"><i class="fas fa-link"></i></a><a href="#UserService-2" class="headerlink" title="UserService"></a>UserService</h3>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Boolean <span class="title">login</span><span class="params">(String username, String password)</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="UserServiceImpl-2"   >
+          <a href="#UserServiceImpl-2" class="heading-link"><i class="fas fa-link"></i></a><a href="#UserServiceImpl-2" class="headerlink" title="UserServiceImpl"></a>UserServiceImpl</h3>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceImpl</span> <span class="keyword">implements</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Boolean <span class="title">login</span><span class="params">(String username, String password)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;admin&quot;</span>.equals(username) &amp;&amp; <span class="string">&quot;admin&quot;</span>.equals(password);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="DynamicProxyHandler"   >
+          <a href="#DynamicProxyHandler" class="heading-link"><i class="fas fa-link"></i></a><a href="#DynamicProxyHandler" class="headerlink" title="DynamicProxyHandler"></a>DynamicProxyHandler</h3>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DynamicProxyHandler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Object target;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DynamicProxyHandler</span><span class="params">(Object target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.target = target;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> t1 = System.nanoTime();</span><br><span class="line">        System.out.println(<span class="string">&quot;start &quot;</span> + target.getClass().getName() + <span class="string">&quot;:&quot;</span> + method.getName());</span><br><span class="line">        Object result = method.invoke(target, args);</span><br><span class="line">        System.out.println(<span class="string">&quot;end &quot;</span> + target.getClass().getName() + <span class="string">&quot;:&quot;</span> + method.getName());</span><br><span class="line">        <span class="keyword">long</span> t2 = System.nanoTime();</span><br><span class="line">        System.out.println(<span class="string">&quot;time: &quot;</span> + (t2 - t1) + <span class="string">&quot;ns&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="DynamicProxy"   >
+          <a href="#DynamicProxy" class="heading-link"><i class="fas fa-link"></i></a><a href="#DynamicProxy" class="headerlink" title="DynamicProxy"></a>DynamicProxy</h3>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DynamicProxy</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">createProxy</span><span class="params">(Object target)</span> </span>&#123;</span><br><span class="line">        ClassLoader classLoader = target.getClass().getClassLoader();</span><br><span class="line">        Class&lt;?&gt;[] interfaces = target.getClass().getInterfaces();</span><br><span class="line">        DynamicProxyHandler handler = <span class="keyword">new</span> DynamicProxyHandler(target);</span><br><span class="line">        <span class="keyword">return</span> Proxy.newProxyInstance(classLoader, interfaces, handler);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="Main-2"   >
+          <a href="#Main-2" class="heading-link"><i class="fas fa-link"></i></a><a href="#Main-2" class="headerlink" title="Main"></a>Main</h3>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        DynamicProxy proxy = <span class="keyword">new</span> DynamicProxy();</span><br><span class="line">        UserService userService = (UserService) proxy.createProxy(<span class="keyword">new</span> UserServiceImpl());</span><br><span class="line">        Boolean result = userService.login(<span class="string">&quot;admin&quot;</span>, <span class="string">&quot;admin&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;result: &quot;</span> + result);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>至此，我们已经实现了基于 JDK 的动态代理，JDK 动态代理要求要代理的类必须实现接口，如果类没有实现接口，那么你可以尝试 <code>CGLIB</code>，它不是 JDK 自带的，而是第三方类库，感兴趣可以详细了解。</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/posts/7a86e223.html">设计模式之原型模式</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-01-27</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-01-27</span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h2 id="使用场景"   >
+          <a href="#使用场景" class="heading-link"><i class="fas fa-link"></i></a><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2>
+      <p>如果 <strong>对象的创建成本比较大</strong>，而 <strong>同一个类的不同对象之间差别不大</strong>（大部分字段都相同），在这种情况下，我们可以利用对已有对象（原型）进行复制（或者叫拷贝）的方式来创建新对象，以达到节省创建时间的目的。</p>
+
+        <h2 id="何为“对象的创建成本比较大”？"   >
+          <a href="#何为“对象的创建成本比较大”？" class="heading-link"><i class="fas fa-link"></i></a><a href="#何为“对象的创建成本比较大”？" class="headerlink" title="何为“对象的创建成本比较大”？"></a>何为“对象的创建成本比较大”？</h2>
+      <p>如果对象中的数据需要经过复杂的计算才能得到（比如排序、计算哈希值），或者需要从 RPC、网络、数据库、文件系统等非常慢速的 IO 中读取，这种情况下，我们就可以利用原型模式，从其他已有对象中直接拷贝得到，而不用每次在创建新对象的时候，都重复执行这些耗时的操作。</p>
+
+        <h2 id="原型模式的实现方式：深拷贝和浅拷贝"   >
+          <a href="#原型模式的实现方式：深拷贝和浅拷贝" class="heading-link"><i class="fas fa-link"></i></a><a href="#原型模式的实现方式：深拷贝和浅拷贝" class="headerlink" title="原型模式的实现方式：深拷贝和浅拷贝"></a>原型模式的实现方式：深拷贝和浅拷贝</h2>
+      <p>要使用原型模式，我们就需要对对象进行拷贝，这里我们要先了解下深拷贝和浅拷贝。</p>
+<p>浅拷贝和深拷贝的区别在于，浅拷贝只会复制数据的内存地址，而深拷贝会复制数据本身。因此，浅拷贝与原始对象共享数据对象，原始对象如果修改了数据值，拷贝的对象也会变为新的值；而深拷贝得到的是一份完完全全独立的对象，不会受原对象影响。</p>
+<p>在 Java 语言中，Object 类的 clone() 方法执行的就是我们刚刚说的浅拷贝。它只会拷贝对象中的基本数据类型的数据（比如，int、long），以及引用对象的内存地址，不会递归地拷贝引用对象本身。</p>
+
+        <h2 id="那如何实现深拷贝呢？"   >
+          <a href="#那如何实现深拷贝呢？" class="heading-link"><i class="fas fa-link"></i></a><a href="#那如何实现深拷贝呢？" class="headerlink" title="那如何实现深拷贝呢？"></a>那如何实现深拷贝呢？</h2>
+      <ul>
+<li>递归拷贝对象、对象的引用对象以及引用对象的引用对象……直到要拷贝的对象只包含基本数据类型数据，没有引用对象为止。</li>
+<li>先将对象序列化，然后再反序列化成新的对象。</li>
+</ul>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/posts/722e57af.html">设计模式之建造者模式</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-01-27</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-01-27</span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h2 id="使用场景"   >
+          <a href="#使用场景" class="heading-link"><i class="fas fa-link"></i></a><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2>
+      <ul>
+<li>对象的构建有很多必填参数，如果使用构造函数会导致参数列表过长难以使用</li>
+<li>构造参数之间有依赖关系，比如设置了 minAge 就必须设置 maxAge，且 minAge 小于等于 maxAge</li>
+<li>类的属性一旦被创建就不可变（不暴力 set()方法）</li>
+</ul>
+
+        <h2 id="类图"   >
+          <a href="#类图" class="heading-link"><i class="fas fa-link"></i></a><a href="#类图" class="headerlink" title="类图"></a>类图</h2>
+      <p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://cdn.wenzuo.net/assets/202201221542175.png" >
+      </p>
+<p>Person 类包含了一个内部类 Builder，负责对外暴露设置属性的方法，这些方法可以包含校验和初始化规则，属性之前的依赖规则可以放到最终调用的 build()方法中校验</p>
+
+        <h2 id="代码实现"   >
+          <a href="#代码实现" class="heading-link"><i class="fas fa-link"></i></a><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Integer minAge;</span><br><span class="line">    <span class="keyword">private</span> Integer maxAge;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Person</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Builder</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> Person person = <span class="keyword">new</span> Person();</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Builder <span class="title">id</span><span class="params">(Long id)</span> </span>&#123;</span><br><span class="line">            person.id = id;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Builder <span class="title">name</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">            person.name = name;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Builder <span class="title">minAge</span><span class="params">(Integer minAge)</span> </span>&#123;</span><br><span class="line">            person.minAge = minAge;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Builder <span class="title">maxAge</span><span class="params">(Integer maxAge)</span> </span>&#123;</span><br><span class="line">            person.maxAge = maxAge;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Person <span class="title">build</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (person.minAge != <span class="keyword">null</span> &amp;&amp; person.maxAge != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (person.minAge &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">&quot;minAge必须大于等于0&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (person.maxAge &lt;= person.minAge) &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">&quot;maxAge必须大于等于minAge&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((person.minAge == <span class="keyword">null</span> &amp;&amp; person.maxAge != <span class="keyword">null</span>) ||</span><br><span class="line">                    (person.minAge != <span class="keyword">null</span> &amp;&amp; person.maxAge == <span class="keyword">null</span>)) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">&quot;minAge和maxAge必须同时设置&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> person;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h2 id="与工厂模式有何区别？"   >
+          <a href="#与工厂模式有何区别？" class="heading-link"><i class="fas fa-link"></i></a><a href="#与工厂模式有何区别？" class="headerlink" title="与工厂模式有何区别？"></a>与工厂模式有何区别？</h2>
+      <ul>
+<li>工厂模式是用来创建不同但是相关类型的对象（继承同一父类或者接口的一组子类），由给定的参数来决定创建哪种类型的对象。</li>
+<li>建造者模式是用来创建一种类型的复杂对象，通过设置不同的可选参数，“定制化”地创建不同的对象。</li>
+</ul>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/posts/bf53f1b3.html">设计模式之工厂模式</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-01-27</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-01-27</span></span></div></header><div class="post-body"><div class="post-excerpt"><p>工厂模式可以细分为：简单工厂、工厂方法和抽象工厂三种模式</p>
+
+        <h2 id="使用场景"   >
+          <a href="#使用场景" class="heading-link"><i class="fas fa-link"></i></a><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2>
+      <p>总体而言工厂模式的使用场景分为两种：</p>
+<ol>
+<li>单个对象的创建过程比较复杂，如需要做复杂初始化操作的对象</li>
+<li>需要根据不同的类型创建不同的对象</li>
+</ol>
+<p>针对细分的三种模式，使用场景又可以区分：</p>
+<ol>
+<li>当<strong>对象的创建逻辑简单</strong>，通常只需要 new 一下就可以，此时可以考虑<strong>简单工厂模式</strong></li>
+<li>当<strong>对象的创建逻辑很复杂</strong>，需要做各种初始化操作，此时可以考虑使用<strong>工厂方法模式</strong>，将对象创建的复杂逻辑拆分到各个工厂类中，让每个工厂类都不至于过于复杂</li>
+<li>当<strong>系统中有多于一个产品族</strong>，而每次只使用其中某一产品族，此时使用<strong>抽象工厂模式</strong></li>
+</ol>
+
+        <h2 id="简单工厂模式"   >
+          <a href="#简单工厂模式" class="heading-link"><i class="fas fa-link"></i></a><a href="#简单工厂模式" class="headerlink" title="简单工厂模式"></a>简单工厂模式</h2>
+      
+        <h3 id="类图"   >
+          <a href="#类图" class="heading-link"><i class="fas fa-link"></i></a><a href="#类图" class="headerlink" title="类图"></a>类图</h3>
+      <p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://cdn.wenzuo.net/assets/202201211600141.png" >
+      </p>
+<p>ProcuctA 和 ProductB 继承 Product 抽象类，ProductFactory 根据传入的 type 来返回不同的 Product 实例</p>
+
+        <h3 id="代码实现"   >
+          <a href="#代码实现" class="heading-link"><i class="fas fa-link"></i></a><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3>
+      
+        <h4 id="Product"   >
+          <a href="#Product" class="heading-link"><i class="fas fa-link"></i></a><a href="#Product" class="headerlink" title="Product"></a>Product</h4>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">use</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h4 id="ProductA"   >
+          <a href="#ProductA" class="heading-link"><i class="fas fa-link"></i></a><a href="#ProductA" class="headerlink" title="ProductA"></a>ProductA</h4>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProductA</span> <span class="keyword">extends</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">use</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;You are using ProductA...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h4 id="ProductB"   >
+          <a href="#ProductB" class="heading-link"><i class="fas fa-link"></i></a><a href="#ProductB" class="headerlink" title="ProductB"></a>ProductB</h4>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProductB</span> <span class="keyword">extends</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">use</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;You are using ProductB...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h4 id="ProductFactory"   >
+          <a href="#ProductFactory" class="heading-link"><i class="fas fa-link"></i></a><a href="#ProductFactory" class="headerlink" title="ProductFactory"></a>ProductFactory</h4>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProductFactory</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Product <span class="title">createProduct</span><span class="params">(String type)</span> </span>&#123;</span><br><span class="line">        Product product = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">&quot;A&quot;</span>.equals(type)) &#123;</span><br><span class="line">            product = <span class="keyword">new</span> ProductA();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">&quot;B&quot;</span>.equals(type)) &#123;</span><br><span class="line">            product = <span class="keyword">new</span> ProductB();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> product;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h4 id="Main"   >
+          <a href="#Main" class="heading-link"><i class="fas fa-link"></i></a><a href="#Main" class="headerlink" title="Main"></a>Main</h4>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ProductFactory factory = <span class="keyword">new</span> ProductFactory();</span><br><span class="line">        Product product;</span><br><span class="line"></span><br><span class="line">        product = factory.createProduct(<span class="string">&quot;A&quot;</span>);</span><br><span class="line">        product.use();</span><br><span class="line"></span><br><span class="line">        product = factory.createProduct(<span class="string">&quot;B&quot;</span>);</span><br><span class="line">        product.use();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="点评"   >
+          <a href="#点评" class="heading-link"><i class="fas fa-link"></i></a><a href="#点评" class="headerlink" title="点评"></a>点评</h3>
+      <p>当频繁的新增不同产品时，需要频繁的修改<code>ProductFactory</code>中的<code>if/else</code>逻辑</p>
+
+        <h3 id="应用"   >
+          <a href="#应用" class="heading-link"><i class="fas fa-link"></i></a><a href="#应用" class="headerlink" title="应用"></a>应用</h3>
+      <p>JDK</p>
+<figure class="highlight"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">java.text.DateFormat#getDateInstance()</span><br><span class="line">java.text.DateFormat#getDateInstance(int)</span><br><span class="line">java.text.DateFormat#getDateInstance(int, java.util.Locale)</span><br></pre></td></tr></table></div></figure>
+
+<p>加密类，获取不同加密算法的密钥生成器:</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">KeyGenerator keyGen=KeyGenerator.getInstance(<span class="string">&quot;DESede&quot;</span>);</span><br></pre></td></tr></table></div></figure>
+
+
+        <h2 id="工厂方法模式"   >
+          <a href="#工厂方法模式" class="heading-link"><i class="fas fa-link"></i></a><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h2>
+      
+        <h3 id="类图-1"   >
+          <a href="#类图-1" class="heading-link"><i class="fas fa-link"></i></a><a href="#类图-1" class="headerlink" title="类图"></a>类图</h3>
+      <p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://cdn.wenzuo.net/assets/202201211636855.png" >
+      </p>
+<p>相比简单工厂，这种方式将<code>ProductFactory</code>定义为抽象类，然后创建不同的具体的<code>ProductAFactory</code>和<code>ProductBFactory</code>，在使用时决定创建那种工厂和对象，避免了 if/else 判断</p>
+
+        <h3 id="代码实现-1"   >
+          <a href="#代码实现-1" class="heading-link"><i class="fas fa-link"></i></a><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h3>
+      
+        <h4 id="Product-1"   >
+          <a href="#Product-1" class="heading-link"><i class="fas fa-link"></i></a><a href="#Product-1" class="headerlink" title="Product"></a>Product</h4>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">use</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h4 id="ProductA-1"   >
+          <a href="#ProductA-1" class="heading-link"><i class="fas fa-link"></i></a><a href="#ProductA-1" class="headerlink" title="ProductA"></a>ProductA</h4>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProductA</span> <span class="keyword">extends</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">use</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;You are using ProductA...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h4 id="ProductB-1"   >
+          <a href="#ProductB-1" class="heading-link"><i class="fas fa-link"></i></a><a href="#ProductB-1" class="headerlink" title="ProductB"></a>ProductB</h4>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProductB</span> <span class="keyword">extends</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">use</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;You are using ProductB...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h4 id="ProductFactory-1"   >
+          <a href="#ProductFactory-1" class="heading-link"><i class="fas fa-link"></i></a><a href="#ProductFactory-1" class="headerlink" title="ProductFactory"></a>ProductFactory</h4>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">ProductFactory</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> Product <span class="title">createProduct</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h4 id="ProductAFactory"   >
+          <a href="#ProductAFactory" class="heading-link"><i class="fas fa-link"></i></a><a href="#ProductAFactory" class="headerlink" title="ProductAFactory"></a>ProductAFactory</h4>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProductAFactory</span> <span class="keyword">extends</span> <span class="title">ProductFactory</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Product <span class="title">createProduct</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ProductA();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h4 id="ProductBFactory"   >
+          <a href="#ProductBFactory" class="heading-link"><i class="fas fa-link"></i></a><a href="#ProductBFactory" class="headerlink" title="ProductBFactory"></a>ProductBFactory</h4>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProductBFactory</span> <span class="keyword">extends</span> <span class="title">ProductFactory</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Product <span class="title">createProduct</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ProductB();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h4 id="Main-1"   >
+          <a href="#Main-1" class="heading-link"><i class="fas fa-link"></i></a><a href="#Main-1" class="headerlink" title="Main"></a>Main</h4>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ProductFactory factory;</span><br><span class="line">        Product product;</span><br><span class="line"></span><br><span class="line">        factory = <span class="keyword">new</span> ProductAFactory();</span><br><span class="line">        product = factory.createProduct();</span><br><span class="line">        product.use();</span><br><span class="line"></span><br><span class="line">        factory = <span class="keyword">new</span> ProductBFactory();</span><br><span class="line">        product = factory.createProduct();</span><br><span class="line">        product.use();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="点评-1"   >
+          <a href="#点评-1" class="heading-link"><i class="fas fa-link"></i></a><a href="#点评-1" class="headerlink" title="点评"></a>点评</h3>
+      <p>这种模式更加符合开闭原则，但是与最原始的<code>new ProductA()</code>和<code>new ProductA()</code>相比非常相似，引入工厂模式，反倒让设计变得更加复杂了。</p>
+
+        <h3 id="应用-1"   >
+          <a href="#应用-1" class="heading-link"><i class="fas fa-link"></i></a><a href="#应用-1" class="headerlink" title="应用"></a>应用</h3>
+      <p>JDBC</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Connection conn=DriverManager.getConnection(<span class="string">&quot;jdbc:mysql://127.0.0.1:3306/db1&quot;</span>,<span class="string">&quot;db_user&quot;</span>,<span class="string">&quot;123456&quot;</span>);</span><br><span class="line">Statement statement=conn.createStatement();</span><br><span class="line">ResultSet rs=statement.executeQuery(<span class="string">&quot;select * from user&quot;</span>);</span><br></pre></td></tr></table></div></figure>
+
+
+        <h2 id="抽象工厂模式"   >
+          <a href="#抽象工厂模式" class="heading-link"><i class="fas fa-link"></i></a><a href="#抽象工厂模式" class="headerlink" title="抽象工厂模式"></a>抽象工厂模式</h2>
+      <p>为了理解抽象工厂模式，我们要先了解两个概念：</p>
+<ul>
+<li>产品等级结构 ：产品等级结构即产品的继承结构，如一个抽象类是电视机，其子类有海尔电视机、海信电视机、TCL 电视机，则抽象电视机与具体品牌的电视机之间构成了一个产品等级结构，抽象电视机是父类，而具体品牌的电视机是其子类。</li>
+<li>产品族 ：在抽象工厂模式中，产品族是指由同一个工厂生产的，位于不同产品等级结构中的一组产品，如海尔电器工厂生产的海尔电视机、海尔电冰箱，海尔电视机位于电视机产品等级结构中，海尔电冰箱位于电冰箱产品等级结构中。</li>
+</ul>
+<p>在工厂方法模式中具体工厂负责生产具体的产品，每一个具体工厂对应一种具体产品。一般情况下，一个具体工厂中只有一个工厂方法或者一组重载的工厂方法。但是有时候我们需要一个工厂可以提供多个产品对象，而不是单一的产品对象。</p>
+
+        <h3 id="类图-2"   >
+          <a href="#类图-2" class="heading-link"><i class="fas fa-link"></i></a><a href="#类图-2" class="headerlink" title="类图"></a>类图</h3>
+      <p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://cdn.wenzuo.net/assets/202201221006832.png" >
+      </p>
+<p><code>Factory1</code>负责创建<code>ProductA1</code>和<code>ProductB1</code><br><code>Factory2</code>负责创建<code>ProductA2</code>和<code>ProductB2</code><br>客户端不需要知道具体的产品，只需要知道创建的工厂即可使用该产品</p>
+
+        <h3 id="代码实现-2"   >
+          <a href="#代码实现-2" class="heading-link"><i class="fas fa-link"></i></a><a href="#代码实现-2" class="headerlink" title="代码实现"></a>代码实现</h3>
+      
+        <h4 id="AbstractProductA"   >
+          <a href="#AbstractProductA" class="heading-link"><i class="fas fa-link"></i></a><a href="#AbstractProductA" class="headerlink" title="AbstractProductA"></a>AbstractProductA</h4>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractProductA</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">use</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h4 id="ProductA1"   >
+          <a href="#ProductA1" class="heading-link"><i class="fas fa-link"></i></a><a href="#ProductA1" class="headerlink" title="ProductA1"></a>ProductA1</h4>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProductA1</span> <span class="keyword">extends</span> <span class="title">AbstractProductA</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">use</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;You are using ProductA1...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h4 id="ProductA2"   >
+          <a href="#ProductA2" class="heading-link"><i class="fas fa-link"></i></a><a href="#ProductA2" class="headerlink" title="ProductA2"></a>ProductA2</h4>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProductA2</span> <span class="keyword">extends</span> <span class="title">AbstractProductA</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">use</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;You are using ProductA2...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h4 id="AbstractProductB"   >
+          <a href="#AbstractProductB" class="heading-link"><i class="fas fa-link"></i></a><a href="#AbstractProductB" class="headerlink" title="AbstractProductB"></a>AbstractProductB</h4>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractProductB</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h4 id="ProductB1"   >
+          <a href="#ProductB1" class="heading-link"><i class="fas fa-link"></i></a><a href="#ProductB1" class="headerlink" title="ProductB1"></a>ProductB1</h4>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProductB1</span> <span class="keyword">extends</span> <span class="title">AbstractProductB</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;You are eating ProductB1...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h4 id="ProductB2"   >
+          <a href="#ProductB2" class="heading-link"><i class="fas fa-link"></i></a><a href="#ProductB2" class="headerlink" title="ProductB2"></a>ProductB2</h4>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProductB2</span> <span class="keyword">extends</span> <span class="title">AbstractProductB</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;You are eating ProductB2...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h4 id="AbstractFactory"   >
+          <a href="#AbstractFactory" class="heading-link"><i class="fas fa-link"></i></a><a href="#AbstractFactory" class="headerlink" title="AbstractFactory"></a>AbstractFactory</h4>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractFactory</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> AbstractProductA <span class="title">createProductA</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> AbstractProductB <span class="title">createProductB</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h4 id="Factory1"   >
+          <a href="#Factory1" class="heading-link"><i class="fas fa-link"></i></a><a href="#Factory1" class="headerlink" title="Factory1"></a>Factory1</h4>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Factory1</span> <span class="keyword">extends</span> <span class="title">AbstractFactory</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> AbstractProductA <span class="title">createProductA</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ProductA1();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> AbstractProductB <span class="title">createProductB</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ProductB1();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h4 id="Factory2"   >
+          <a href="#Factory2" class="heading-link"><i class="fas fa-link"></i></a><a href="#Factory2" class="headerlink" title="Factory2"></a>Factory2</h4>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Factory2</span> <span class="keyword">extends</span> <span class="title">AbstractFactory</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> AbstractProductA <span class="title">createProductA</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ProductA2();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> AbstractProductB <span class="title">createProductB</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ProductB2();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h4 id="Main-2"   >
+          <a href="#Main-2" class="heading-link"><i class="fas fa-link"></i></a><a href="#Main-2" class="headerlink" title="Main"></a>Main</h4>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        AbstractFactory factory;</span><br><span class="line"></span><br><span class="line">        factory = <span class="keyword">new</span> Factory1();</span><br><span class="line">        use(factory);</span><br><span class="line"></span><br><span class="line">        factory = <span class="keyword">new</span> Factory2();</span><br><span class="line">        use(factory);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">use</span><span class="params">(AbstractFactory factory)</span> </span>&#123;</span><br><span class="line">        AbstractProductA productA = factory.createProductA();</span><br><span class="line">        productA.use();</span><br><span class="line">        AbstractProductB productB = factory.createProductB();</span><br><span class="line">        productB.eat();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="点评-2"   >
+          <a href="#点评-2" class="heading-link"><i class="fas fa-link"></i></a><a href="#点评-2" class="headerlink" title="点评"></a>点评</h3>
+      <p>抽象工厂模式带来了众多类，结构相对复杂，且创建新的产品等级结构麻烦。<br>抽象工厂模式实际工作中应用场景很少，简单关注了解下即可</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/posts/1a4b62fe.html">设计模式之单例模式</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-01-22</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-01-27</span></span></div></header><div class="post-body"><div class="post-excerpt"><p>单例设计模式理解起来非常简单。一个类只允许创建一个对象（或者实例），那这个类就是一个单例类，这种设计模式就叫单例模式。</p>
+
+        <h2 id="使用场景"   >
+          <a href="#使用场景" class="heading-link"><i class="fas fa-link"></i></a><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2>
+      
+        <h3 id="处理资源访问冲突"   >
+          <a href="#处理资源访问冲突" class="heading-link"><i class="fas fa-link"></i></a><a href="#处理资源访问冲突" class="headerlink" title="处理资源访问冲突"></a>处理资源访问冲突</h3>
+      <p>下面的示例中如果每个类都创建一个 Logger 实例，就可能造成日志内容被覆盖的情况。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Logger</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> FileWriter writer;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">Logger</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    File file = <span class="keyword">new</span> File(<span class="string">&quot;log.txt&quot;</span>);</span><br><span class="line">    writer = <span class="keyword">new</span> FileWriter(file, <span class="keyword">true</span>); <span class="comment">//true表示追加写入</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">log</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">    writer.write(mesasge);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> Logger logger = <span class="keyword">new</span> Logger();</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">login</span><span class="params">(String username, String password)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...省略业务逻辑代码...</span></span><br><span class="line">    logger.log(username + <span class="string">&quot; logined!&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OrderController</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> Logger logger = <span class="keyword">new</span> Logger();</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">create</span><span class="params">(OrderVo order)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...省略业务逻辑代码...</span></span><br><span class="line">    logger.log(<span class="string">&quot;Created an order: &quot;</span> + order.toString());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="表示全局唯一类"   >
+          <a href="#表示全局唯一类" class="heading-link"><i class="fas fa-link"></i></a><a href="#表示全局唯一类" class="headerlink" title="表示全局唯一类"></a>表示全局唯一类</h3>
+      <p>如果有些数据在系统中只应保存一份，那就比较适合设计为单例类。比如，配置信息类，全局 ID 生成器等。</p>
+
+        <h2 id="如何实现一个单例？"   >
+          <a href="#如何实现一个单例？" class="heading-link"><i class="fas fa-link"></i></a><a href="#如何实现一个单例？" class="headerlink" title="如何实现一个单例？"></a>如何实现一个单例？</h2>
+      <p>要实现一个单例，我们要考虑以下几点：</p>
+<ul>
+<li>构造函数需要是 private 访问权限的，这样才能避免外部通过 new 创建实例；</li>
+<li>考虑对象创建时的线程安全问题；</li>
+<li>考虑是否支持延迟加载；</li>
+<li>考虑 getInstance() 性能是否高（是否加锁）。</li>
+</ul>
+
+        <h3 id="饿汉式"   >
+          <a href="#饿汉式" class="heading-link"><i class="fas fa-link"></i></a><a href="#饿汉式" class="headerlink" title="饿汉式"></a>饿汉式</h3>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton instance = <span class="keyword">new</span> Singleton();</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> instance;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="懒汉式"   >
+          <a href="#懒汉式" class="heading-link"><i class="fas fa-link"></i></a><a href="#懒汉式" class="headerlink" title="懒汉式"></a>懒汉式</h3>
+      <p>懒汉式相对于饿汉式的优势是<strong>支持延迟加载</strong>。但缺点也很明显，因为使用了<code>synchronized</code>关键字导致这个方法的<strong>并发度很低</strong>。如果这个单例类偶尔会被用到，那这种实现方式还可以接受。但是，如果频繁地用到，就会导致性能瓶颈，这种实现方式就不可取了。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">      instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> instance;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="双重检测"   >
+          <a href="#双重检测" class="heading-link"><i class="fas fa-link"></i></a><a href="#双重检测" class="headerlink" title="双重检测"></a>双重检测</h3>
+      <p>这是一种既支持延迟加载、又支持高并发的单例实现方式。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="keyword">synchronized</span>(Singleton.class) &#123; <span class="comment">// 此处为类级别的锁</span></span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">          instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> instance;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>在 java1.5 以下<code>instance = new Singleton();</code>有指令重排问题，需要给<code>instance</code>成员变量加上<code>volatile</code>关键字，java1.5 之后不会再这个有问题。</p>
+
+        <h3 id="静态内部类"   >
+          <a href="#静态内部类" class="heading-link"><i class="fas fa-link"></i></a><a href="#静态内部类" class="headerlink" title="静态内部类"></a>静态内部类</h3>
+      <p>这种方式利用了 Java 的静态内部类，有点类似饿汉式，但又能做到了延迟加载。</p>
+<p>当外部类 Singleton 被加载的时候，并不会创建 SingletonHolder 实例对象。只有当调用 getInstance() 方法时，SingletonHolder 才会被加载，这个时候才会创建 instance。insance 的唯一性、创建过程的线程安全性，都由 JVM 来保证。所以，这种实现方法既保证了线程安全，又能做到延迟加载。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonHolder</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> SingletonHolder.instance;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="枚举"   >
+          <a href="#枚举" class="heading-link"><i class="fas fa-link"></i></a><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h3>
+      <p>这是一种最简单的实现方式，基于枚举类型的单例实现。这种实现方式通过 Java 枚举类型本身的特性，保证了实例创建的线程安全性和实例的唯一性。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">IdGenerator</span> </span>&#123;</span><br><span class="line">  INSTANCE;</span><br><span class="line">  <span class="keyword">private</span> AtomicLong id = <span class="keyword">new</span> AtomicLong(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> id.incrementAndGet();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h2 id="如何实现线程唯一的单例？"   >
+          <a href="#如何实现线程唯一的单例？" class="heading-link"><i class="fas fa-link"></i></a><a href="#如何实现线程唯一的单例？" class="headerlink" title="如何实现线程唯一的单例？"></a>如何实现线程唯一的单例？</h2>
+      <p>上面的单例类对象是进程唯一的，一个进程只能有一个单例对象。那如何实现一个线程唯一的单例呢？</p>
+<p>假设 IdGenerator 是一个线程唯一的单例类。在线程 A 内，我们可以创建一个单例对象 a。因为线程内唯一，在线程 A 内就不能再创建新的 IdGenerator 对象了，而线程间可以不唯一，所以，在另外一个线程 B 内，我们还可以重新创建一个新的单例对象 b。</p>
+<p>我们通过一个 ConcurrentHashMap 来存储对象，其中 key 是线程 ID，value 是对象。这样我们就可以做到，不同的线程对应不同的对象，同一个线程只能对应一个对象。实际上，Java 语言本身提供了 ThreadLocal 工具类，可以更加轻松地实现线程唯一单例。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IdGenerator</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> AtomicLong id = <span class="keyword">new</span> AtomicLong(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> ConcurrentHashMap&lt;Long, IdGenerator&gt; instances</span><br><span class="line">          = <span class="keyword">new</span> ConcurrentHashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> <span class="title">IdGenerator</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> IdGenerator <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Long currentThreadId = Thread.currentThread().getId();</span><br><span class="line">    instances.putIfAbsent(currentThreadId, <span class="keyword">new</span> IdGenerator());</span><br><span class="line">    <span class="keyword">return</span> instances.get(currentThreadId);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> id.incrementAndGet();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/posts/4a7ab732.html">设计模式之设计原则</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-01-21</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-01-27</span></span></div></header><div class="post-body"><div class="post-excerpt"><blockquote>
+<p>SOLID 原则是由五个设计原则组成：单一职责原则（SRP），开闭原则（OCP），里式替换原则（LSP），接口隔离原则（ISP），依赖反转原则（DIP）</p>
+</blockquote>
+
+        <h2 id="单一职责原则（SRP）"   >
+          <a href="#单一职责原则（SRP）" class="heading-link"><i class="fas fa-link"></i></a><a href="#单一职责原则（SRP）" class="headerlink" title="单一职责原则（SRP）"></a>单一职责原则（SRP）</h2>
+      
+        <h3 id="概念"   >
+          <a href="#概念" class="heading-link"><i class="fas fa-link"></i></a><a href="#概念" class="headerlink" title="概念"></a>概念</h3>
+      <p>单一职责原则的英文是 Single Responsibility Principle，缩写为 SRP。</p>
+<p><strong>一个类只负责完成一个职责或者功能</strong>。不要设计大而全的类，要设计粒度小、功能单一的类。单一职责原则是为了实现代码高内聚、低耦合，提高代码的复用性、可读性、可维护性。</p>
+
+        <h3 id="如何判断类的职责是否足够单一？"   >
+          <a href="#如何判断类的职责是否足够单一？" class="heading-link"><i class="fas fa-link"></i></a><a href="#如何判断类的职责是否足够单一？" class="headerlink" title="如何判断类的职责是否足够单一？"></a>如何判断类的职责是否足够单一？</h3>
+      <p>不同的应用场景、不同阶段的需求背景、不同的业务层面，对同一个类的职责是否单一，可能会有不同的判定结果。</p>
+<p>一些侧面的判断指标更具有指导意义和可执行性，比如，出现下面这些情况就有可能说明这类的设计不满足单一职责原则：</p>
+<ul>
+<li><p>类中的代码行数、函数或者属性过多；</p>
+</li>
+<li><p>类依赖的其他类过多，或者依赖类的其他类过多；</p>
+</li>
+<li><p>私有方法过多；</p>
+</li>
+<li><p>比较难给类起一个合适的名字；</p>
+</li>
+<li><p>类中大量的方法都是集中操作类中的某几个属性。</p>
+</li>
+</ul>
+
+        <h3 id="类的职责是否设计得越单一越好？"   >
+          <a href="#类的职责是否设计得越单一越好？" class="heading-link"><i class="fas fa-link"></i></a><a href="#类的职责是否设计得越单一越好？" class="headerlink" title="类的职责是否设计得越单一越好？"></a>类的职责是否设计得越单一越好？</h3>
+      <p>单一职责原则是为了实现代码高内聚、低耦合，如果拆分得过细，实际上会适得其反，反倒会降低内聚性，也会影响代码的可维护性。</p>
+
+        <h2 id="开闭原则（OCP）"   >
+          <a href="#开闭原则（OCP）" class="heading-link"><i class="fas fa-link"></i></a><a href="#开闭原则（OCP）" class="headerlink" title="开闭原则（OCP）"></a>开闭原则（OCP）</h2>
+      
+        <h3 id="概念-1"   >
+          <a href="#概念-1" class="heading-link"><i class="fas fa-link"></i></a><a href="#概念-1" class="headerlink" title="概念"></a>概念</h3>
+      <p>开闭原则的英文全称是 Open Closed Principle，简写为 OCP。</p>
+<p><strong>软件实体（模块、类、方法等）应该“对扩展开放、对修改关闭”</strong>。</p>
+<p>添加一个新的功能，应该是通过在已有代码基础上扩展代码（新增模块、类、方法、属性等），而非修改已有代码（修改模块、类、方法、属性等）的方式来完成。关于定义，我们有两点要注意。第一点是，开闭原则<strong>并不是说完全杜绝修改</strong>，而是以最小的修改代码的代价来完成新功能的开发。第二点是，同样的代码改动，在粗代码粒度下，可能被认定为“修改”；在细代码粒度下，可能又被认定为“扩展”。</p>
+
+        <h3 id="如何做到“对扩展开放、修改关闭”？"   >
+          <a href="#如何做到“对扩展开放、修改关闭”？" class="heading-link"><i class="fas fa-link"></i></a><a href="#如何做到“对扩展开放、修改关闭”？" class="headerlink" title="如何做到“对扩展开放、修改关闭”？"></a>如何做到“对扩展开放、修改关闭”？</h3>
+      <p>我们要时刻具备扩展意识、抽象意识、封装意识，在写代码的时候，多思考这段代码未来可能有哪些需求变更，如何设计代码结构，事先留好扩展点，以便将新的代码灵活地插入到扩展点上。</p>
+<p>23 种经典设计模式，大部分都是为了解决代码的扩展性问题而总结出来的，都是以开闭原则为指导原则的。最常用来提高代码扩展性的方法有：多态、依赖注入、基于接口而非实现编程，以及大部分的设计模式（比如，装饰、策略、模板、职责链、状态）。</p>
+
+        <h2 id="里式替换原则（LSP）"   >
+          <a href="#里式替换原则（LSP）" class="heading-link"><i class="fas fa-link"></i></a><a href="#里式替换原则（LSP）" class="headerlink" title="里式替换原则（LSP）"></a>里式替换原则（LSP）</h2>
+      
+        <h3 id="概念-2"   >
+          <a href="#概念-2" class="heading-link"><i class="fas fa-link"></i></a><a href="#概念-2" class="headerlink" title="概念"></a>概念</h3>
+      <p>里式替换原则的英文翻译是：Liskov Substitution Principle，缩写为 LSP。</p>
+<p><strong>子类对象能够替换程序中父类对象出现的任何地方，并且保证原来程序的逻辑行为不变及正确性不被破坏。</strong></p>
+<p>里式替换原则是用来指导，继承关系中子类该如何设计的一个原则。理解里式替换原则，最核心的就是理解“design by contract，按照协议来设计”这几个字。父类定义了函数的“约定”（或者叫协议），那子类可以改变函数的内部实现逻辑，但不能改变函数原有的“约定”。这里的约定包括：函数声明要实现的功能；对输入、输出、异常的约定；甚至包括注释中所罗列的任何特殊说明。</p>
+
+        <h3 id="里式替换原则跟多态的区别"   >
+          <a href="#里式替换原则跟多态的区别" class="heading-link"><i class="fas fa-link"></i></a><a href="#里式替换原则跟多态的区别" class="headerlink" title="里式替换原则跟多态的区别"></a>里式替换原则跟多态的区别</h3>
+      <p>虽然从定义描述和代码实现上来看，多态和里式替换有点类似，但它们关注的角度是不一样的。多态是面向对象编程的一大特性，也是面向对象编程语言的一种语法。它是一种代码实现的思路。而里式替换是一种设计原则，用来指导继承关系中子类该如何设计，子类的设计要保证在替换父类的时候，不改变原有程序的逻辑及不破坏原有程序的正确性。</p>
+
+        <h2 id="接口隔离原则（ISP）"   >
+          <a href="#接口隔离原则（ISP）" class="heading-link"><i class="fas fa-link"></i></a><a href="#接口隔离原则（ISP）" class="headerlink" title="接口隔离原则（ISP）"></a>接口隔离原则（ISP）</h2>
+      
+        <h3 id="概念-3"   >
+          <a href="#概念-3" class="heading-link"><i class="fas fa-link"></i></a><a href="#概念-3" class="headerlink" title="概念"></a>概念</h3>
+      <p>接口隔离原则的英文翻译是“ Interface Segregation Principle”，缩写为 ISP。</p>
+<p><strong>客户端不应该强迫依赖它不需要的接口。其中的“客户端”，可以理解为接口的调用者或者使用者。</strong></p>
+<p>接口的设计要尽量单一，不要让接口的实现类和调用者，依赖不需要的接口函数。</p>
+
+        <h3 id="接口隔离原则与单一职责原则的区别"   >
+          <a href="#接口隔离原则与单一职责原则的区别" class="heading-link"><i class="fas fa-link"></i></a><a href="#接口隔离原则与单一职责原则的区别" class="headerlink" title="接口隔离原则与单一职责原则的区别"></a>接口隔离原则与单一职责原则的区别</h3>
+      <p>单一职责原则针对的是模块、类、接口的设计。接口隔离原则相对于单一职责原则，一方面更侧重于接口的设计，另一方面它的思考角度也是不同的。接口隔离原则提供了一种判断接口的职责是否单一的标准：通过调用者如何使用接口来间接地判定。如果调用者只使用部分接口或接口的部分功能，那接口的设计就不够职责单一。</p>
+
+        <h2 id="依赖反转原则（DIP）"   >
+          <a href="#依赖反转原则（DIP）" class="heading-link"><i class="fas fa-link"></i></a><a href="#依赖反转原则（DIP）" class="headerlink" title="依赖反转原则（DIP）"></a>依赖反转原则（DIP）</h2>
+      
+        <h3 id="概念-4"   >
+          <a href="#概念-4" class="heading-link"><i class="fas fa-link"></i></a><a href="#概念-4" class="headerlink" title="概念"></a>概念</h3>
+      <p>依赖反转原则。依赖反转原则的英文翻译是 Dependency Inversion Principle，缩写为 DIP。</p>
+<p><strong>高层模块不要依赖低层模块。高层模块和低层模块应该通过抽象来互相依赖。除此之外，抽象不要依赖具体实现细节，具体实现细节依赖抽象。</strong></p>
+<p>所谓高层模块和低层模块的划分，简单来说就是，在调用链上，调用者属于高层，被调用者属于低层。</p>
+
+        <h3 id="控制反转（IOC）"   >
+          <a href="#控制反转（IOC）" class="heading-link"><i class="fas fa-link"></i></a><a href="#控制反转（IOC）" class="headerlink" title="控制反转（IOC）"></a>控制反转（IOC）</h3>
+      <p>这里的“控制”指的是对程序执行流程的控制，而“反转”指的是在没有使用框架之前，程序员自己控制整个程序的执行。在使用框架之后，整个程序的执行流程可以通过框架来控制。流程的控制权从程序员“反转”到了框架。</p>
+<p>实现控制反转的方法有很多，控制反转并不是一种具体的实现技巧，而是一个比较笼统的设计思想，一般用来指导框架层面的设计。</p>
+
+        <h3 id="依赖注入（DI）"   >
+          <a href="#依赖注入（DI）" class="heading-link"><i class="fas fa-link"></i></a><a href="#依赖注入（DI）" class="headerlink" title="依赖注入（DI）"></a>依赖注入（DI）</h3>
+      <p>什么是依赖注入呢？我们用一句话来概括就是：不通过 new() 的方式在类内部创建依赖类对象，而是将依赖的类对象在外部创建好之后，通过构造函数、函数参数等方式传递（或注入）给类使用。</p>
+
+        <h2 id="KISS-原则"   >
+          <a href="#KISS-原则" class="heading-link"><i class="fas fa-link"></i></a><a href="#KISS-原则" class="headerlink" title="KISS 原则"></a>KISS 原则</h2>
+      
+        <h3 id="概念-5"   >
+          <a href="#概念-5" class="heading-link"><i class="fas fa-link"></i></a><a href="#概念-5" class="headerlink" title="概念"></a>概念</h3>
+      <p>KISS 原则。英文是 Keep It Simple and Stupid，缩写为 KISS。</p>
+<p><strong>尽量保持简单</strong></p>
+<p>KISS 原则中的“简单”并不是以代码行数来考量的。代码行数越少并不代表代码越简单，我们还要考虑逻辑复杂度、实现难度、代码的可读性等。而且，本身就复杂的问题，用复杂的方法解决，并不违背 KISS 原则。除此之外，同样的代码，在某个业务场景下满足 KISS 原则，换一个应用场景可能就不满足了。</p>
+
+        <h3 id="对于如何写出满足-KISS-原则的代码"   >
+          <a href="#对于如何写出满足-KISS-原则的代码" class="heading-link"><i class="fas fa-link"></i></a><a href="#对于如何写出满足-KISS-原则的代码" class="headerlink" title="对于如何写出满足 KISS 原则的代码"></a>对于如何写出满足 KISS 原则的代码</h3>
+      <ul>
+<li><p>不要使用同事可能不懂的技术来实现代码；</p>
+</li>
+<li><p>不要重复造轮子，要善于使用已经有的工具类库；</p>
+</li>
+<li><p>不要过度优化。</p>
+</li>
+</ul>
+
+        <h2 id="DRY-原则"   >
+          <a href="#DRY-原则" class="heading-link"><i class="fas fa-link"></i></a><a href="#DRY-原则" class="headerlink" title="DRY 原则"></a>DRY 原则</h2>
+      
+        <h3 id="概念-6"   >
+          <a href="#概念-6" class="heading-link"><i class="fas fa-link"></i></a><a href="#概念-6" class="headerlink" title="概念"></a>概念</h3>
+      <p>DRY 原则为 Don’t Repeat Yourself</p>
+<p><strong>不要重复造轮子</strong></p>
+<p>实现逻辑重复，但功能语义不重复的代码，并不违反 DRY 原则。实现逻辑不重复，但功能语义重复的代码，也算是违反 DRY 原则。除此之外，代码执行重复也算是违反 DRY 原则。</p>
+
+        <h3 id="提高代码可复用性的一些方法"   >
+          <a href="#提高代码可复用性的一些方法" class="heading-link"><i class="fas fa-link"></i></a><a href="#提高代码可复用性的一些方法" class="headerlink" title="提高代码可复用性的一些方法"></a>提高代码可复用性的一些方法</h3>
+      <ul>
+<li><p>减少代码耦合</p>
+</li>
+<li><p>满足单一职责原则</p>
+</li>
+<li><p>模块化</p>
+</li>
+<li><p>业务与非业务逻辑分离</p>
+</li>
+<li><p>通用代码下沉</p>
+</li>
+<li><p>继承、多态、抽象、封装</p>
+</li>
+<li><p>应用模板等设计模式</p>
+</li>
+</ul>
+<p>我们在第一次写代码的时候，如果当下没有复用的需求，而未来的复用需求也不是特别明确，并且开发可复用代码的成本比较高，那我们就不需要考虑代码的复用性。在之后开发新的功能的时候，发现可以复用之前写的这段代码，那我们就重构这段代码，让其变得更加可复用。</p>
+<p>相比于代码的可复用性，DRY 原则适用性更强一些。我们可以不写可复用的代码，但一定不能写重复的代码。</p>
+
+        <h1 id="迪米特法则（LOD）"   >
+          <a href="#迪米特法则（LOD）" class="heading-link"><i class="fas fa-link"></i></a><a href="#迪米特法则（LOD）" class="headerlink" title="迪米特法则（LOD）"></a>迪米特法则（LOD）</h1>
+      
+        <h3 id="概念-7"   >
+          <a href="#概念-7" class="heading-link"><i class="fas fa-link"></i></a><a href="#概念-7" class="headerlink" title="概念"></a>概念</h3>
+      <p>迪米特法则的英文翻译是：Law of Demeter，缩写是 LOD。它还有另外一个更加达意的英文翻译为：The Least Knowledge Principle。</p>
+<p><strong>最小知识原则</strong></p>
+<p>每个模块只应该了解那些与它关系密切的模块的有限知识。</p>
+<p>不该有直接依赖关系的类之间，不要有依赖。有依赖关系的类之间，尽量只依赖必要的接口。迪米特法则是希望减少类之间的耦合，让类越独立越好。每个类都应该少了解系统的其他部分。一旦发生变化，需要了解这一变化的类就会比较少。</p>
+
+        <h3 id="如何理解“高内聚、松耦合”？"   >
+          <a href="#如何理解“高内聚、松耦合”？" class="heading-link"><i class="fas fa-link"></i></a><a href="#如何理解“高内聚、松耦合”？" class="headerlink" title="如何理解“高内聚、松耦合”？"></a>如何理解“高内聚、松耦合”？</h3>
+      <p>所谓高内聚，就是指相近的功能应该放到同一个类中，不相近的功能不要放到同一类中。相近的功能往往会被同时修改，放到同一个类中，修改会比较集中。</p>
+<p>所谓松耦合指的是，在代码中，类与类之间的依赖关系简单清晰。即使两个类有依赖关系，一个类的代码改动也不会或者很少导致依赖类的代码改动。</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/posts/a258c787.html">最重要的JVM参数指南</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-12-04</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-01-27</span></span></div></header><div class="post-body"><div class="post-excerpt"><h2 id="概述"   >
+          <a href="#概述" class="heading-link"><i class="fas fa-link"></i></a><a href="#概述" class="headerlink" title="概述"></a>概述</h2>
+      <p>在这个快速教程中，我们将探索可用于配置 Java 虚拟机的最知名的选项。</p>
+
+        <h2 id="堆内存-Xms-和-Xmx"   >
+          <a href="#堆内存-Xms-和-Xmx" class="heading-link"><i class="fas fa-link"></i></a><a href="#堆内存-Xms-和-Xmx" class="headerlink" title="堆内存 -Xms 和 -Xmx"></a>堆内存 -Xms 和 -Xmx</h2>
+      <p>最常见的与性能相关的实践之一是根据应用程序需求初始化堆内存。</p>
+<p>这就是为什么我们应该指定最小和最大的堆大小:</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-Xms&lt;heap size&gt;[unit]</span><br><span class="line">-Xmx&lt;heap size&gt;[unit]</span><br></pre></td></tr></table></div></figure></div><div class="post-readmore"><a class="post-readmore__link" href="/posts/a258c787.html"><span class="post-readmore__text">阅读全文</span><span class="post-readmore__icon"><i class="fas fa-long-arrow-alt-right"></i></span></a></div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/posts/551c330e.html">Java Volatile关键字</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-09-18</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-01-27</span></span></div></header><div class="post-body"><div class="post-excerpt"><blockquote>
+<p>原文地址 作者：Jakob Jenkov 译者：小龙虾</p>
+<p><em>转载自</em><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://ifeve.com/" >并发编程网 – ifeve.com</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</blockquote>
+<p>Java 的 volatile 关键字用于标记一个变量“应当存储在主存”。更确切地说，每次读取 volatile 变量，都应该从主存读取，而不是从 CPU 缓存读取。每次写入一个 volatile 变量，应该写到主存中，而不是仅仅写到 CPU 缓存。</p>
+<p>实际上，从 Java 5 开始，volatile 关键字除了保证 volatile 变量从主存读写外，还提供了更多的保障。我将在后面的章节中进行说明。</p></div><div class="post-readmore"><a class="post-readmore__link" href="/posts/551c330e.html"><span class="post-readmore__text">阅读全文</span><span class="post-readmore__icon"><i class="fas fa-long-arrow-alt-right"></i></span></a></div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/posts/11c91f7a.html">The java.util.concurrent Synchronizer Framework 中文翻译版</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-09-18</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-01-27</span></span></div></header><div class="post-body"><div class="post-excerpt"><blockquote>
+<p>原文：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://raw.githubusercontent.com/sunlggggg/public/master/files/aqs.pdf" >https://raw.githubusercontent.com/sunlggggg/public/master/files/aqs.pdf</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>作者：Doug Lea</p>
+</blockquote>
+
+        <h2 id="摘要"   >
+          <a href="#摘要" class="heading-link"><i class="fas fa-link"></i></a><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2>
+      <p>在 J2SE 1.5 的 java.util.concurrent 包（下称 j.u.c 包）中，大部分的同步器（例如锁，屏障等等）都是基于 AbstractQueuedSynchronizer 类（下称 AQS 类），这个简单的框架而构建的。这个框架为同步状态的原子性管理、线程的阻塞和解除阻塞以及排队提供了一种通用的机制。这篇论文主要描述了这个框架基本原理、设计、实现、用法以及性能。</p></div><div class="post-readmore"><a class="post-readmore__link" href="/posts/11c91f7a.html"><span class="post-readmore__text">阅读全文</span><span class="post-readmore__icon"><i class="fas fa-long-arrow-alt-right"></i></span></a></div></div></article></section><nav class="paginator"><div class="paginator-inner"><span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="https://cdn.wenzuo.net/catch6-github-io/base/avatar.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">临渊羡鱼，不如退而结网。</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">43</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">3</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">20</div><div class="sidebar-ov-state-item__name">标签</div></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2015~2022</span><span class="footer__devider"></span><span>Catch</span></div><div class="busuanzi"><span class="busuanzi-siteuv"><span class="busuanzi-siteuv__icon"><i class="fas fa-user"></i></span><span class="busuanzi-siteuv__info">访问人数</span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_uv"></span></span><span class="busuanzi-sitepv"><span class="busuanzi-siteuv__icon"><i class="fas fa-eye"></i></span><span class="busuanzi-siteuv__info">浏览总量</span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_pv"></span></span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/quicklink@1.0.1/dist/quicklink.umd.js"></script><script>function initQuicklink() {
+  quicklink({
+    timeout: '10000',
+    priority: true,
+    ignores: [uri => uri.includes('#'), uri => uri === 'https://catch6.github.io/', /\/api\/?/,uri => uri.includes('.xml'),uri => uri.includes('.zip'),(uri, el) => el.hasAttribute('nofollow'),(uri, el) => el.hasAttribute('noprefetch')]
+  });
+}
+
+if (false || false) {
+  initQuicklink();
+} else {
+  window.addEventListener('DOMContentLoaded', initQuicklink, false);
+}</script><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>

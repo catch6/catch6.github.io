@@ -1,0 +1,449 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="https://cdn.wenzuo.net/catch6-github-io/base/avatar.jpg?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="https://cdn.wenzuo.net/catch6-github-io/base/avatar.jpg?v=2.6.2" type="image/png" sizes="32x32"><meta name="baidu-site-verification" content="code-4sfQ80iYvV"><meta name="description" content="概述       在这个快速教程中，我们将探索可用于配置 Java 虚拟机的最知名的选项。                     堆内存 -Xms 和 -Xmx       最常见的与性能相关的实践之一是根据应用程序需求初始化堆内存。 这就是为什么我们应该指定最小和最大的堆大小: 12-Xms&lt;heap size&gt;[unit]-Xmx&lt;heap size&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="最重要的JVM参数指南">
+<meta property="og:url" content="https://catch6.github.io/posts/a258c787.html">
+<meta property="og:site_name" content="Catch Notebook">
+<meta property="og:description" content="概述       在这个快速教程中，我们将探索可用于配置 Java 虚拟机的最知名的选项。                     堆内存 -Xms 和 -Xmx       最常见的与性能相关的实践之一是根据应用程序需求初始化堆内存。 这就是为什么我们应该指定最小和最大的堆大小: 12-Xms&lt;heap size&gt;[unit]-Xmx&lt;heap size&amp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-04T03:45:26.000Z">
+<meta property="article:modified_time" content="2022-01-27T06:38:59.044Z">
+<meta property="article:author" content="Catch">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="JVM">
+<meta name="twitter:card" content="summary"><title>最重要的JVM参数指南 | Catch Notebook</title><link ref="canonical" href="https://catch6.github.io/posts/a258c787.html"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" data-ad-client="ca-pub-2106789659977182" async=""></script><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: true,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: true,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/links/"><span class="header-nav-menu-item__icon"><i class="fas fa-link"></i></span><span class="header-nav-menu-item__text">友链</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Catch Notebook</div><div class="header-banner-info__subtitle">临渊羡鱼，不如退而结网。</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">最重要的JVM参数指南</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-12-04</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-01-27</span></span><span class="post-meta-item post-meta-item--visitors"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value" id="busuanzi_value_page_pv"></span></span></div></header><div class="post-body">
+        <h2 id="概述"   >
+          <a href="#概述" class="heading-link"><i class="fas fa-link"></i></a><a href="#概述" class="headerlink" title="概述"></a>概述</h2>
+      <p>在这个快速教程中，我们将探索可用于配置 Java 虚拟机的最知名的选项。</p>
+
+        <h2 id="堆内存-Xms-和-Xmx"   >
+          <a href="#堆内存-Xms-和-Xmx" class="heading-link"><i class="fas fa-link"></i></a><a href="#堆内存-Xms-和-Xmx" class="headerlink" title="堆内存 -Xms 和 -Xmx"></a>堆内存 -Xms 和 -Xmx</h2>
+      <p>最常见的与性能相关的实践之一是根据应用程序需求初始化堆内存。</p>
+<p>这就是为什么我们应该指定最小和最大的堆大小:</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-Xms&lt;heap size&gt;[unit]</span><br><span class="line">-Xmx&lt;heap size&gt;[unit]</span><br></pre></td></tr></table></div></figure>
+
+<span id="more"></span>
+
+<p>在这里，unit 表示要初始化内存(用堆大小表示)的单元。单位可以标记为“ g”为 GB，“ m”为 MB，“ k”为 KB。<br>例如，如果我们想给 JVM 分配最小的 2gb 和最大的 5gb，我们需要写:</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Xms2G -Xmx5G</span><br></pre></td></tr></table></div></figure>
+
+<p>从 java8 开始，Metaspace 的大小没有定义。一旦它达到全局限制，JVM 会自动增加它，然而，为了克服任何不必要的不稳定性，我们可以设置 Metaspace 大小为:</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-XX:MaxMetaspaceSize&#x3D;&lt;metaspace size&gt;[unit]</span><br></pre></td></tr></table></div></figure>
+
+<p>在这里，元/空间大小表示我们要分配给元/空间的内存量。<br>根据 Oracle 的指导方针，除了总的可用内存之外，第二大影响因素是为年轻一代保留的堆的比例。默认情况下，YG 的最小大小为 1310 MB，最大大小不受限制。<br>我们可以明确地分配它们:</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-XX:NewSize&#x3D;&lt;young size&gt;[unit]</span><br><span class="line">-XX:MaxNewSize&#x3D;&lt;young size&gt;[unit]</span><br></pre></td></tr></table></div></figure>
+
+
+        <h2 id="垃圾收集"   >
+          <a href="#垃圾收集" class="heading-link"><i class="fas fa-link"></i></a><a href="#垃圾收集" class="headerlink" title="垃圾收集"></a>垃圾收集</h2>
+      <p>为了提高应用程序的稳定性，选择正确的垃圾收集算法至关重要。</p>
+<p>有四种类型的 GC 实现:</p>
+<ul>
+<li>Serial Garbage Collector 串行垃圾收集器</li>
+<li>Parallel Garbage Collector 并行垃圾收集器</li>
+<li>CMS Garbage Collector CMS 垃圾收集器</li>
+<li>G1 Garbage Collector G1 垃圾收集器</li>
+<li>Z Garbage Collector ZGC 垃圾收集器</li>
+</ul>
+<p>这些实现可以使用以下参数声明:</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-XX:+UseSerialGC</span><br><span class="line">-XX:+UseParallelGC</span><br><span class="line">-XX:+UseParNewGC (会自动启用-XX:+UseConcMarkSweepGC)</span><br><span class="line">-XX:+UseG1GC</span><br><span class="line">-XX:+UnlockExperimentalVMOptions -XX:+UseZGC (java11开始支持,java15之后不再需要-XX:+UnlockExperimentalVMOptions)</span><br></pre></td></tr></table></div></figure>
+
+<p>有关垃圾收集实现的更多详细信息可以在<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.baeldung.com/jvm-garbage-collectors" >这里</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>找到。</p>
+
+        <h2 id="GC-Logging"   >
+          <a href="#GC-Logging" class="heading-link"><i class="fas fa-link"></i></a><a href="#GC-Logging" class="headerlink" title="GC Logging"></a>GC Logging</h2>
+      <p>为了严格监视应用程序的运行状况，我们应该始终检查 JVM 的垃圾收集性能。最简单的方法是以人类可读的格式记录 GC 活动。</p>
+<p>使用以下参数，我们可以记录 GC 活动:</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-XX:+UseGCLogFileRotation</span><br><span class="line">-XX:NumberOfGCLogFiles&#x3D;&lt; number of log files &gt;</span><br><span class="line">-XX:GCLogFileSize&#x3D;&lt; file size &gt;[ unit ]</span><br><span class="line">-Xloggc:&#x2F;path&#x2F;to&#x2F;gc.log</span><br></pre></td></tr></table></div></figure>
+
+<p>UseGCLogFileRotation 指定日志文件滚动策略，很像 log4j、 s4lj 等。NumberOfGCLogFiles 表示可以为单个应用程序生命周期编写的日志文件的最大数量。GCLogFileSize 指定文件的最大大小。最后，loggc 表示它的位置。</p>
+<p>这里需要注意的是，还有两个可用的 JVM 参数(-XX:+PrintGCTimeStamps 和 -XX:+PrintGCDateStamps)可用于在 GC 日志中打印日期时间戳。</p>
+<p>例如，如果我们希望分配最多 100 个 GC 日志文件，每个文件的最大大小为 50 MB，并希望将它们存储在‘/home/user/log/’位置，我们可以使用以下语法:</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-XX:+UseGCLogFileRotation</span><br><span class="line">-XX:NumberOfGCLogFiles&#x3D;10</span><br><span class="line">-XX:GCLogFileSize&#x3D;50M</span><br><span class="line">-Xloggc:&#x2F;home&#x2F;user&#x2F;log&#x2F;gc.log</span><br></pre></td></tr></table></div></figure>
+
+<p>但是，问题是总是在后台使用一个附加的守护进程线程来监视系统时间。<strong>这种行为可能会造成一些性能瓶颈; 这就是为什么在生产中最好不要使用这个参数的原因。</strong></p>
+
+        <h2 id="处理-OOM"   >
+          <a href="#处理-OOM" class="heading-link"><i class="fas fa-link"></i></a><a href="#处理-OOM" class="headerlink" title="处理 OOM"></a>处理 OOM</h2>
+      <p>对于大型应用程序来说，面对内存不足错误是非常常见的，这反过来会导致应用程序崩溃。这是一个非常关键的场景，很难通过复制来解决这个问题。</p>
+<p>这就是为什么 JVM 提供了一些参数，这些参数将堆内存转储到一个物理文件中，以后可以用来查找泄漏:</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-XX:+HeapDumpOnOutOfMemoryError</span><br><span class="line">-XX:HeapDumpPath&#x3D;.&#x2F;java_pid&lt;pid&gt;.hprof</span><br><span class="line">-XX:OnOutOfMemoryError&#x3D;&quot;&lt; cmd args &gt;;&lt; cmd args &gt;&quot;</span><br><span class="line">-XX:+UseGCOverheadLimit</span><br></pre></td></tr></table></div></figure>
+
+<p>这里有几点需要注意:</p>
+<ul>
+<li>HeapDumpOnOutOfMemoryError 指示 JVM 在遇到 OutOfMemoryError 错误时将 heap 转储到物理文件中</li>
+<li>HeapDumpPath 表示要写入文件的路径; 可以给出任何文件名; 但是，如果 JVM 在名称中找到一个 <code>&lt;pid&gt;</code> 标记，则当前进程的进程 id 将附加到文件名中，并使用<code>.hprof</code>格式<br>OnOutOfMemoryError is used to issue emergency commands to be executed in case of out of memory error; proper command should be used in the space of cmd args. For example, if we want to restart the server as soon as out of memory occur, we can set the parameter:</li>
+<li>OnOutOfMemoryError 用于发出紧急命令，以便在内存不足的情况下执行; 应该在 <code>cmd args</code> 空间中使用适当的命令。例如，如果我们想在内存不足时重启服务器，我们可以设置参数:</li>
+</ul>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-XX:OnOutOfMemoryError&#x3D;&quot;shutdown -r&quot;</span><br></pre></td></tr></table></div></figure>
+
+<ul>
+<li>UseGCOverheadLimit 是一种策略，它限制在抛出 OutOfMemory 错误之前在 GC 中花费的 VM 时间的比例</li>
+</ul>
+
+        <h2 id="32-64-位"   >
+          <a href="#32-64-位" class="heading-link"><i class="fas fa-link"></i></a><a href="#32-64-位" class="headerlink" title="32/64 位"></a>32/64 位</h2>
+      <p>在同时安装了 32 位和 64 位包的操作系统环境中，JVM 会自动选择 32 位环境包。</p>
+<p>如果我们想手动设置环境为 64 位，我们可以使用下面的参数:</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-d&lt;OS bit&gt;</span><br></pre></td></tr></table></div></figure>
+
+<p>操作系统位可以是 32 或 64。更多信息可以在<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://www.oracle.com/technetwork/java/hotspotfaq-138619.html#64bit_layering" >这里</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>找到。</p>
+
+        <h2 id="杂项"   >
+          <a href="#杂项" class="heading-link"><i class="fas fa-link"></i></a><a href="#杂项" class="headerlink" title="杂项"></a>杂项</h2>
+      <ul>
+<li>server: 启用“ Server Hotspot VM”; 此参数默认用于 64 位 JVM</li>
+<li>-XX:+UseStringDeduplication: java8u20 引入了这个 JVM 参数，通过创建太多相同 String 的实例来减少不必要的内存使用; 这通过将重复 String 值减少为单个全局 char []数组来优化堆内存</li>
+<li>-XX:+UseLWPSynchronization: 设置基于 LWP (轻量级进程)的同步策略，而不是基于线程的同步</li>
+<li>-XX:LargePageSizeInBytes: 设置用于 Java 堆的较大页面大小; 它采用 GB/MB/KB 的参数; 页面大小越大，我们可以更好地利用虚拟内存硬件资源; 然而，这可能会导致 PermGen 的空间大小更大，这反过来又会迫使 Java 堆空间的大小减小</li>
+<li>-XX:MaxHeapFreeRatio: 设置 GC 后, 堆空闲的最大百分比，以避免收缩。</li>
+<li>-XX:SurvivorRatio: eden/survivor 空间的比例, 例如<code>-XX:SurvivorRatio=6</code> 设置每个 survivor 和 eden 之间的比例为 1:6,</li>
+<li>-XX:+UseLargePages: 如果系统支持，则使用大页面内存; 请注意，如果使用这个 JVM 参数，OpenJDK 7 可能会崩溃</li>
+<li>-XX:+UseStringCache: 启用 String 池中可用的常用分配字符串的缓存</li>
+<li>-XX:+UseCompressedStrings: 对 String 对象使用 byte []类型，该类型可以用纯 ASCII 格式表示</li>
+<li>-XX:+OptimizeStringConcat: 它尽可能优化字符串串联操作</li>
+</ul>
+
+        <h2 id="总结"   >
+          <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a><a href="#总结" class="headerlink" title="总结"></a>总结</h2>
+      <p>我们了解了一些重要的 JVM 参数，这些参数可用于调优和提高通用应用程序性能。</p>
+<p>其中一些还可以用于调试目的。</p>
+<p>如果您想更详细地研究参考参数，可以从<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://www.oracle.com/technetwork/articles/java/vmoptions-jsp-140102.html" >这里</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>开始。</p>
+
+        <h2 id="相关链接"   >
+          <a href="#相关链接" class="heading-link"><i class="fas fa-link"></i></a><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h2>
+      <p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.baeldung.com/jvm-parameters" >Guide to the Most Important JVM Parameters</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span><br><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.baeldung.com/jvm-garbage-collectors" >JVM Garbage Collectors</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span><br><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html" >Oracle Java HotSpot VM Options</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span><br><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.oracle.com/java/technologies/hotspotfaq.html#64bit_layering" >Oracle HotSpot FAQ</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://catch6.github.io">Catch</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://catch6.github.io/posts/a258c787.html">https://catch6.github.io/posts/a258c787.html</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://catch6.github.io/tags/Java/">Java</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://catch6.github.io/tags/JVM/">JVM</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/posts/4a7ab732.html"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">设计模式之设计原则</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/posts/551c330e.html"><span class="paginator-prev__text">Java Volatile关键字</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">
+          概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A0%86%E5%86%85%E5%AD%98-Xms-%E5%92%8C-Xmx"><span class="toc-number">2.</span> <span class="toc-text">
+          堆内存 -Xms 和 -Xmx</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86"><span class="toc-number">3.</span> <span class="toc-text">
+          垃圾收集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GC-Logging"><span class="toc-number">4.</span> <span class="toc-text">
+          GC Logging</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%84%E7%90%86-OOM"><span class="toc-number">5.</span> <span class="toc-text">
+          处理 OOM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#32-64-%E4%BD%8D"><span class="toc-number">6.</span> <span class="toc-text">
+          32&#x2F;64 位</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%82%E9%A1%B9"><span class="toc-number">7.</span> <span class="toc-text">
+          杂项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">8.</span> <span class="toc-text">
+          总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5"><span class="toc-number">9.</span> <span class="toc-text">
+          相关链接</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="https://cdn.wenzuo.net/catch6-github-io/base/avatar.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">临渊羡鱼，不如退而结网。</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">43</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">3</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">20</div><div class="sidebar-ov-state-item__name">标签</div></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2015~2022</span><span class="footer__devider"></span><span>Catch</span></div><div class="busuanzi"><span class="busuanzi-siteuv"><span class="busuanzi-siteuv__icon"><i class="fas fa-user"></i></span><span class="busuanzi-siteuv__info">访问人数</span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_uv"></span></span><span class="busuanzi-sitepv"><span class="busuanzi-siteuv__icon"><i class="fas fa-eye"></i></span><span class="busuanzi-siteuv__info">浏览总量</span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_pv"></span></span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: '7eRzjmkpxcLvDgBh4fHv7Pok-gzGzoHsz',
+    appKey: 'NXXOEJbQJ0M6Fn3eOAorvHvD',
+    notify: false,
+    verify: false,
+    placeholder: '开始你的评论...',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: false,
+    recordIP: true,
+    lang: '' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>
